@@ -33,7 +33,9 @@
     "LICENSE",
     "README.md"
   ],
-  "scripts": {},
+  "scripts": {
+    "test": "cross-env jest --config ../../jest.config.js --rootDir . --roots ."
+  },
   "dependencies": {
     "@teamsupercell/typings-for-css-modules-loader": "2.4.0",
     "stylus": "^0.54.8",

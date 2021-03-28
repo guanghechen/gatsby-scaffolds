@@ -27,9 +27,7 @@ exports.onCreateWebpackConfig = function (
     // Generate *.d.ts for stylus files
     const dtsLoader = shouldModules &&
       shouldGenerateDts && {
-        loader: require.resolve(
-          '@teamsupercell/typings-for-css-modules-loader',
-        ),
+        loader: '@teamsupercell/typings-for-css-modules-loader',
       }
 
     // Process css contents
