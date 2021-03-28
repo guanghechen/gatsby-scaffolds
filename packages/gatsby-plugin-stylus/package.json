@@ -1,0 +1,42 @@
+{
+  "name": "@guanghechen/gatsby-plugin-stylus",
+  "version": "0.0.0",
+  "description": "Provides drop-in support for Stylus & generate *.d.ts for Stylus",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/gatsby-scaffolds.git",
+    "directory": "packages/gatsby-plugin-stylus"
+  },
+  "homepage": "https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-plugin-stylus#readme",
+  "keywords": [
+    "gatsby",
+    "gatsby plugin",
+    "stylus",
+    "css typings",
+    "typescript"
+  ],
+  "main": "gatsby-node.js",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "gatsby-node.js",
+    "index.d.ts",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "@teamsupercell/typings-for-css-modules-loader": "2.4.0",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^5.0.0"
+  }
+}
