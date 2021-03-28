@@ -3,7 +3,9 @@
     "gitmoji",
     "guanghechen",
     "pinst",
-    "postpublish"
+    "postpublish",
+    "styl",
+    "teamsupercell"
   ],
   "files.associations": {
     ".prettierrc": "yaml"
