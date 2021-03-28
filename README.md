@@ -52,6 +52,7 @@ A monorepo contains some utility functions and plugins for [gatsby]
 
 Package                               | Description
 :------------------------------------:|:--------------------------
+[@guanghechen/gatsby-plugin-stylus][] | Provides drop-in support for Stylus, and generate `*.d.ts` for Stylus files
 
 ## License
 
@@ -59,4 +60,6 @@ gatsby-scaffolds is [MIT licensed](https://github.com/guanghechen/gatsby-scaffol
 
 
 [homepage]: https://github.com/guanghechen/gatsby-scaffolds
+[@guanghechen/gatsby-plugin-stylus]: ./packages/gatsby-plugin-stylus
+
 [gatsby]: https://github.com/gatsbyjs/gatsby
