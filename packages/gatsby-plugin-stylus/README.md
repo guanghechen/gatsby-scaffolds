@@ -27,6 +27,12 @@
         src="https://img.shields.io/node/v/@guanghechen/gatsby-plugin-stylus"
       />
     </a>
+    <a href="https://github.com/gatsbyjs/gatsby">
+      <img
+        alt="Gatsby Version"
+        src="https://img.shields.io/npm/dependency-version/@guanghechen/rollup-config/peer/gatsby"
+      />
+    </a>
     <a href="https://github.com/facebook/jest">
       <img
         alt="Tested with Jest"
