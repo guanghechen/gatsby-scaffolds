@@ -1,5 +1,25 @@
 # Changelog
 
+<a name="1.0.1"></a>
+## 1.0.1 (2021-03-30)
+
+### Added
+
+- ✅ [gatsby-plugin-stylus] test: update tests due to the previous refactor [[b44d121](https://github.com/guanghechen/gatsby-scaffolds/commit/b44d12148f650ffe455992d8299aa188bc9f4775)]
+- ✨ feat: add new sub-package @guanghechen/gatsby-transformer-yozora [[3d6b342](https://github.com/guanghechen/gatsby-scaffolds/commit/3d6b3424d46bf7489a50b4fa6fbad8a16d4eec38)]
+- ✅ [gatsby-plugin-stylus] test: add tests [[7dd4760](https://github.com/guanghechen/gatsby-scaffolds/commit/7dd4760d3424abbe0355ea66ed8780e98b223913)]
+
+### Changed
+
+- 🎨 [gatsby-plugin-stylus] refactor: rewrite with typescript [[b0b5229](https://github.com/guanghechen/gatsby-scaffolds/commit/b0b522935b1a3bf9043708f85c7d0f92b9a7775a)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[b4a1189](https://github.com/guanghechen/gatsby-scaffolds/commit/b4a1189befe2b548ff808747313cbe0726a14409)]
+- 📝 docs: update badges [[cfade77](https://github.com/guanghechen/gatsby-scaffolds/commit/cfade77888c1bddb54f6badbae0732cbaf23b76b)]
+- 📝 docs: add CHANGELOG [[277fe0e](https://github.com/guanghechen/gatsby-scaffolds/commit/277fe0e8bfd29b859784603e6043b14dc3e1d282)]
+
+
 <a name="1.0.0"></a>
 ## 1.0.0 (2021-03-28)
 
