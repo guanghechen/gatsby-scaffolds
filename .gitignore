@@ -33,3 +33,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+packages/gatsby-transformer-yozora/gatsby-node.js
+packages/gatsby-transformer-yozora/gatsby-node.js.map
