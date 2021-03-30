@@ -1,4 +1,4 @@
-const { onCreateWebpackConfig } = require('../gatsby-node')
+import { onCreateWebpackConfig } from '../src'
 
 describe(`gatsby-plugin-stylus`, () => {
   const actions = {
@@ -7,10 +7,10 @@ describe(`gatsby-plugin-stylus`, () => {
 
   // loaders "mocks"
   const loaders = {
-    miniCssExtract: () => `miniCssExtract`,
-    css: args => `css(${JSON.stringify(args)})`,
-    postcss: args => `postcss(${JSON.stringify(args)})`,
-    null: () => `null`,
+    miniCssExtract: (): string => `miniCssExtract`,
+    css: (args: any): string => `css(${JSON.stringify(args)})`,
+    postcss: (args: any): string => `postcss(${JSON.stringify(args)})`,
+    null: (): string => `null`,
   }
 
   beforeEach(() => {
@@ -61,7 +61,7 @@ describe(`gatsby-plugin-stylus`, () => {
             actions,
             loaders,
             stage,
-          },
+          } as any,
           options,
         )
         expect(actions.setWebpackConfig).toMatchSnapshot()

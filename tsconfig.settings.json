@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
+    "module": "esnext",
     "moduleResolution": "node",
     "newLine": "LF",
     "noEmit": false,

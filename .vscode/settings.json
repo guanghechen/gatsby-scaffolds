@@ -1,11 +1,15 @@
 {
   "cSpell.words": [
+    "Yast",
+    "frontmatter",
     "gitmoji",
     "guanghechen",
     "pinst",
     "postpublish",
+    "prebuild",
     "styl",
-    "teamsupercell"
+    "teamsupercell",
+    "yozora"
   ],
   "files.associations": {
     ".prettierrc": "yaml"

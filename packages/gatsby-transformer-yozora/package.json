@@ -1,7 +1,7 @@
 {
-  "name": "@guanghechen/gatsby-plugin-stylus",
+  "name": "@guanghechen/gatsby-transformer-yozora",
   "version": "1.0.0",
-  "description": "Provides drop-in support for Stylus & generate *.d.ts for Stylus",
+  "description": "Transform markdown files to Yozora AST",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,15 +9,15 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/gatsby-scaffolds.git",
-    "directory": "packages/gatsby-plugin-stylus"
+    "directory": "packages/gatsby-transformer-yozora"
   },
-  "homepage": "https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-plugin-stylus#readme",
+  "homepage": "https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-transformer-yozora#readme",
   "keywords": [
     "gatsby",
     "gatsby plugin",
-    "stylus",
-    "css typings",
-    "typescript"
+    "markdown",
+    "gfm",
+    "yozora markdown"
   ],
   "main": "gatsby-node.js",
   "types": "lib/types/index.d.ts",
@@ -38,13 +38,11 @@
     "start": "cross-env NODE_ENV=development rollup -c -w ../../rollup.config.js",
     "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
     "prebuild": "rimraf lib/",
-    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
-    "test": "cross-env jest --config ../../jest.config.js --rootDir . --roots ."
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
   },
   "dependencies": {
-    "@teamsupercell/typings-for-css-modules-loader": "2.4.0",
-    "stylus": "^0.54.8",
-    "stylus-loader": "^5.0.0"
+    "@yozora/parser-gfm": "1.0.0-alpha.12",
+    "gray-matter": "^4.0.2"
   },
   "peerDependencies": {
     "gatsby": "^3.1.2"
