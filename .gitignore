@@ -34,5 +34,5 @@ yarn-error.log*
 *.sln
 *.sw*
 
-packages/gatsby-transformer-yozora/gatsby-node.js
-packages/gatsby-transformer-yozora/gatsby-node.js.map
+**/gatsby-node.js
+**/gatsby-node.js.map

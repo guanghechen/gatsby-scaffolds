@@ -20,20 +20,25 @@
     "typescript"
   ],
   "main": "gatsby-node.js",
-  "types": "index.d.ts",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
   "license": "MIT",
   "engines": {
     "node": ">= 14.15.0"
   },
   "files": [
+    "lib/",
     "gatsby-node.js",
-    "index.d.ts",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
+    "start": "cross-env NODE_ENV=development rollup -c -w ../../rollup.config.js",
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prebuild": "rimraf lib/",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "cross-env jest --config ../../jest.config.js --rootDir . --roots ."
   },
   "dependencies": {

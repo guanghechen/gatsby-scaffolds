@@ -1,10 +1,14 @@
+import type { CreateWebpackConfigArgs } from 'gatsby'
+import type { GatsbyPluginStylusOptions } from './types'
+
 /**
+ * Mutate webpack config to support stylus.
  *
  * @param {*} param0
  * @param {GatsbyPluginStylusOptions} param1
  */
-exports.onCreateWebpackConfig = function (
-  { stage, loaders, actions },
+export function onCreateWebpackConfig(
+  { stage, loaders, actions }: CreateWebpackConfigArgs,
   {
     stylusRule = {},
     moduleStylusRule = {},
@@ -13,11 +17,11 @@ exports.onCreateWebpackConfig = function (
     cssLoaderOptions = {},
     stylusLoaderOptions = {},
     postcssLoaderOptions = {},
-  } = {},
-) {
+  }: GatsbyPluginStylusOptions = {},
+): void {
   const isSSR = [`develop-html`, `build-html`].includes(stage)
 
-  const stylusLoaders = shouldModules => {
+  const stylusLoaders = (shouldModules: boolean): any[] => {
     const modulesOptions = {
       namedExport: false,
       exportLocalsConvention: 'camelCaseOnly',
