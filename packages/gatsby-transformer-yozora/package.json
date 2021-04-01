@@ -45,9 +45,9 @@
     "gray-matter": "^4.0.2"
   },
   "peerDependencies": {
-    "gatsby": "^3.1.2"
+    "gatsby": "^3.2.0"
   },
   "devDependencies": {
-    "gatsby": "^3.1.2"
+    "gatsby": "^3.2.0"
   }
 }

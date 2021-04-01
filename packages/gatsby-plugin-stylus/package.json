@@ -42,14 +42,14 @@
     "test": "cross-env jest --config ../../jest.config.js --rootDir . --roots ."
   },
   "dependencies": {
-    "@teamsupercell/typings-for-css-modules-loader": "2.4.0",
+    "@teamsupercell/typings-for-css-modules-loader": "2.5.1",
     "stylus": "^0.54.8",
     "stylus-loader": "^5.0.0"
   },
   "peerDependencies": {
-    "gatsby": "^3.1.2"
+    "gatsby": "^3.2.0"
   },
   "devDependencies": {
-    "gatsby": "^3.1.2"
+    "gatsby": "^3.2.0"
   }
 }

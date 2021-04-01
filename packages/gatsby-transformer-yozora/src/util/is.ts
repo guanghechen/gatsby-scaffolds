@@ -1,10 +1,11 @@
 /**
- *
- * @param date
+ * Checks whether the given value is an object of type Date.
+ * @param value
  * @returns
  */
-export const isDate = (date: any): date is Date => {
-  if (Object.prototype.toString.call(date) !== '[object Date]') return false
-  if (date instanceof Date) return true
-  return typeof date.getMonth === 'function'
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const isDate = (value: any): value is Date => {
+  if (Object.prototype.toString.call(value) !== '[object Date]') return false
+  if (value instanceof Date) return true
+  return typeof value.getMonth === 'function'
 }

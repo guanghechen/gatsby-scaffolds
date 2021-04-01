@@ -78,9 +78,12 @@ export async function onCreateNode(
     return markdownNode
   } catch (error) {
     reporter.panicOnBuild(
-      'Error processing Markdown ' + node.absolutePath
-        ? `file ${node.absolutePath}`
-        : `in node ${node.id}` + ':\n\n' + error.message,
+      'Error processing Markdown ' +
+        (node.absolutePath
+          ? `file ${node.absolutePath}`
+          : `in node ${node.id}`) +
+        ':\n\n' +
+        error.message,
     )
   }
 }

@@ -1,3 +1,12 @@
+**/*.*
+!**/*.ts
+!**/*.tsx
+!**/*.js
+!**/*.jsx
+!**/*.json
+!.eslintignore
+!.eslintrc
+
 **/.vscode/
 **/__tmp__/
 **/__test__/cases/
@@ -13,13 +22,4 @@
 **/resources/
 **/test/
 **/*.styl.d.ts
-**/gatsby-node.js
-
-**/*.*
-!**/*.ts
-!**/*.tsx
-!**/*.js
-!**/*.jsx
-!**/*.json
-!.eslintignore
-!.eslintrc
+**/*/gatsby-node.js
