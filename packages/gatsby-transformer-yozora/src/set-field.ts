@@ -26,7 +26,8 @@ export async function setFieldsOnGraphQLNodeType(
    * @returns
    */
   async function getAst(markdownNode: Node): Promise<Root> {
-    const cacheKey = 'transformer-yozora-ast:' + markdownNode.id
+    const cacheKey =
+      'transformer-yozora-markdown-ast:' + markdownNode.internal.contentDigest
 
     // Check from cache.
     const cachedAST = await cache.get(cacheKey)
