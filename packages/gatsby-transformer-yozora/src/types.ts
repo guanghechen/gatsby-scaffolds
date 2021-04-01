@@ -18,6 +18,11 @@ export interface TransformerYozoraOptions {
    * Options for `gray-matter`
    */
   frontmatter?: {
+    /**
+     * Slug field name.
+     * @default 'slug'
+     */
+    slugField?: string
     excerpt_separator?: string
     parser?(): void
     eval?: boolean

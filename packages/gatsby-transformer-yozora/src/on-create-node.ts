@@ -38,7 +38,8 @@ export async function onCreateNode(
 
   try {
     const content = await loadNodeContent(node)
-    const data = frontmatter(content, options.frontmatter ?? {})
+    const { slugField, ...grayMatterOptions } = options.frontmatter ?? {}
+    const data = frontmatter(content, grayMatterOptions)
 
     // format data
     if (data.data) {

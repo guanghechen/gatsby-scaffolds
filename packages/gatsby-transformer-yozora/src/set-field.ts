@@ -1,6 +1,13 @@
-import type { Root, YastLiteral, YastParent } from '@yozora/ast'
+import type {
+  Root,
+  YastLiteral,
+  YastNode,
+  YastParent,
+  YastResource,
+} from '@yozora/ast'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import type { TransformerYozoraOptions } from './types'
+import { resolveUrl } from './util/url'
 import { parseMarkdown, shallowCloneAst } from './util/yast'
 
 const astPromiseMap = new Map<string, Promise<Root>>()
@@ -17,7 +24,33 @@ export async function setFieldsOnGraphQLNodeType(
   api: SetFieldsOnGraphQLNodeTypeArgs,
   options: TransformerYozoraOptions,
 ): Promise<any> {
-  const { cache, pathPrefix } = api
+  const { basePath, cache, pathPrefix } = api
+  const { slugField = 'slug' } = options.frontmatter || {}
+
+  /**
+   * Add node slug to the reference url.
+   *
+   * @param markdownNode
+   * @param slugField
+   * @param node
+   * @returns
+   */
+  function resolveUrlWithSlug(markdownNode: Node, node: YastNode): void {
+    const slug: string = (markdownNode as any).frontmatter[slugField] ?? ''
+    const u = node as YastParent & YastResource
+
+    // Resolve url.
+    if (u.url != null) {
+      u.url = resolveUrl(basePath as string, slug, u.url)
+    }
+
+    // Recursively process.
+    if (u.children != null) {
+      for (const v of u.children) {
+        resolveUrlWithSlug(markdownNode, v)
+      }
+    }
+  }
 
   /**
    * Calc Yast Root from markdownNode.
@@ -41,6 +74,14 @@ export async function setFieldsOnGraphQLNodeType(
       markdownNode.internal.content || '',
       options,
       pathPrefix,
+    ).then(
+      (ast: Root): Root => {
+        resolveUrlWithSlug(markdownNode, ast)
+        for (const definition of Object.values(ast.meta.definitions)) {
+          resolveUrlWithSlug(markdownNode, (definition as unknown) as YastNode)
+        }
+        return ast
+      },
     )
     astPromiseMap.set(cacheKey, astPromise)
 
@@ -53,6 +94,12 @@ export async function setFieldsOnGraphQLNodeType(
     }
   }
 
+  /**
+   * Calc Yozora Markdown AST of excerpt content.
+   * @param fullAst
+   * @param param1
+   * @returns
+   */
   async function getExcerptAst(
     fullAst: Root,
     { pruneLength, excerptSeparator }: GetExcerptAstOptions,
