@@ -1,3 +1,4 @@
+import { isFunction } from '@guanghechen/option-helper'
 import type { CreateSchemaCustomizationArgs } from 'gatsby'
 import type { TransformerYozoraOptions } from './types'
 
@@ -39,7 +40,7 @@ export async function createSchemaCustomization(
   const plugins = options.plugins ?? []
   for (const plugin of plugins) {
     const resolvedPlugin = await import(plugin.resolve)
-    if (typeof resolvedPlugin.createSchemaCustomization === `function`) {
+    if (isFunction(resolvedPlugin.createSchemaCustomization)) {
       resolvedPlugin.createSchemaCustomization(api, plugin.options)
     }
   }

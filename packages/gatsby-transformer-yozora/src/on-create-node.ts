@@ -1,7 +1,7 @@
+import { isDate } from '@guanghechen/option-helper'
 import type { CreateNodeArgs, Node, NodeInput } from 'gatsby'
 import frontmatter from 'gray-matter'
 import type { TransformerYozoraOptions } from './types'
-import { isDate } from './util/is'
 
 /**
  *

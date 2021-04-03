@@ -5,10 +5,10 @@ import type {
   YastParent,
   YastResource,
 } from '@yozora/ast'
+import { DefinitionType, ImageType, LinkType } from '@yozora/ast'
 import type { YastParser } from '@yozora/core-parser'
 import { createExGFMParser, createGFMParser } from '@yozora/parser-gfm'
 import type { TransformerYozoraOptions } from '../types'
-import { resolveUrl } from './url'
 
 /**
  * Traverse yozora AST, and provide an opportunity to perform an action on
@@ -103,31 +103,35 @@ export function getParser(options: TransformerYozoraOptions): YastParser {
 
 /**
  * Parse markdown contents & resolve url references.
+ *
+ * @param content
+ * @param options
+ * @param basePath
+ * @returns
  */
 export function parseMarkdown(
   content: string,
   options: TransformerYozoraOptions,
-  urlPrefix?: string,
-): Promise<Root> {
+  resolveUrl?: (url: string) => string,
+): Root {
   const parser = getParser(options)
   const ast = parser.parse(content)
 
-  /**
-   * Correct url paths.
-   */
-  if (urlPrefix != null) {
-    const urlRegex = /^\//
+  // Correct url paths.
+  if (resolveUrl != null) {
     traverseYozoraAST(
       ast,
       node => {
         const o = node as YastNode & YastResource
-        if (o.url != null && urlRegex.test(o.url)) {
-          o.url = resolveUrl(urlPrefix, o.url)
-        }
+        if (o.url != null) o.url = resolveUrl(o.url)
       },
-      ['definition', 'link', 'image'],
+      [DefinitionType, LinkType, ImageType],
     )
+
+    for (const definition of Object.values(ast.meta.definitions)) {
+      definition.url = resolveUrl(definition.url)
+    }
   }
 
-  return Promise.resolve(ast)
+  return ast
 }

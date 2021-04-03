@@ -1,3 +1,4 @@
+import { isFunction } from '@guanghechen/option-helper'
 import type {
   Root,
   YastLiteral,
@@ -7,9 +8,11 @@ import type {
 } from '@yozora/ast'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import type { TransformerYozoraOptions } from './types'
+import { isEnvProduction } from './util/env'
 import { resolveUrl } from './util/url'
 import { parseMarkdown, shallowCloneAst } from './util/yast'
 
+let fileNodes: Node[] | null = null
 const astPromiseMap = new Map<string, Promise<Root>>()
 
 /**
@@ -24,33 +27,8 @@ export async function setFieldsOnGraphQLNodeType(
   api: SetFieldsOnGraphQLNodeTypeArgs,
   options: TransformerYozoraOptions,
 ): Promise<any> {
-  const { basePath, cache, pathPrefix } = api
   const { slugField = 'slug' } = options.frontmatter || {}
-
-  /**
-   * Add node slug to the reference url.
-   *
-   * @param markdownNode
-   * @param slugField
-   * @param node
-   * @returns
-   */
-  function resolveUrlWithSlug(markdownNode: Node, node: YastNode): void {
-    const slug: string = (markdownNode as any).frontmatter[slugField] ?? ''
-    const u = node as YastParent & YastResource
-
-    // Resolve url.
-    if (u.url != null) {
-      u.url = resolveUrl(basePath as string, slug, u.url)
-    }
-
-    // Recursively process.
-    if (u.children != null) {
-      for (const v of u.children) {
-        resolveUrlWithSlug(markdownNode, v)
-      }
-    }
-  }
+  const urlPrefix: string = resolveUrl(api.pathPrefix, api.basePath as string)
 
   /**
    * Calc Yast Root from markdownNode.
@@ -63,31 +41,79 @@ export async function setFieldsOnGraphQLNodeType(
       'transformer-yozora-markdown-ast:' + markdownNode.internal.contentDigest
 
     // Check from cache.
-    const cachedAST = await cache.get(cacheKey)
+    const cachedAST = await api.cache.get(cacheKey)
     if (cachedAST != null) return cachedAST
 
     // Check from promise cache.
     const promise = astPromiseMap.get(cacheKey)
     if (promise != null) return await promise
 
-    const astPromise = parseMarkdown(
-      markdownNode.internal.content || '',
-      options,
-      pathPrefix,
-    ).then(
-      (ast: Root): Root => {
-        resolveUrlWithSlug(markdownNode, ast)
-        for (const definition of Object.values(ast.meta.definitions)) {
-          resolveUrlWithSlug(markdownNode, (definition as unknown) as YastNode)
+    // Get all file nodes.
+    if (!isEnvProduction || fileNodes == null) {
+      fileNodes = api.getNodesByType('File')
+    }
+
+    // Execute hooks to mutate source contents before parse processing.
+    const plugins = options.plugins || []
+    for (const plugin of plugins) {
+      const requiredPlugin = await import(plugin.resolve)
+      if (isFunction(requiredPlugin.mutateSource)) {
+        await requiredPlugin.mutateSource(
+          {
+            ...api,
+            markdownNode,
+            files: fileNodes,
+            urlPrefix,
+            cache: (api.getCache as any)(plugin.name ?? plugin.resolve),
+          },
+          plugin.options,
+        )
+      }
+    }
+
+    const slug: string = (markdownNode as any).frontmatter[slugField] ?? ''
+    const astPromise: Promise<Root> = (async function (): Promise<Root> {
+      const ast: Root = parseMarkdown(
+        markdownNode.internal.content || '',
+        options,
+        url => {
+          if (/^[/](?![/])/.test(url)) return resolveUrl(urlPrefix, slug, url)
+          return url
+        },
+      )
+
+      // Execute hooks to mutate ast.
+      const plugins = options.plugins ?? []
+      for (const plugin of plugins) {
+        const requiredPlugin = await import(plugin.resolve)
+        // Allow both exports = function(), and exports.default = function()
+        const defaultFunction = isFunction(requiredPlugin)
+          ? requiredPlugin
+          : isFunction(requiredPlugin.default)
+          ? requiredPlugin.default
+          : undefined
+
+        if (defaultFunction) {
+          await defaultFunction(
+            {
+              ...api,
+              markdownAST: ast,
+              markdownNode,
+              files: fileNodes,
+              urlPrefix,
+              cache: (api.getCache as any)(plugin.name ?? plugin.resolve),
+            },
+            plugin.options,
+          )
         }
-        return ast
-      },
-    )
+      }
+      return ast
+    })()
     astPromiseMap.set(cacheKey, astPromise)
 
     try {
       const ast = await astPromise
-      await cache.set(cacheKey, ast)
+      await api.cache.set(cacheKey, ast)
       return ast
     } finally {
       astPromiseMap.delete(cacheKey)

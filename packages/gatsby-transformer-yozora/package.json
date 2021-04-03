@@ -41,6 +41,8 @@
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
   },
   "dependencies": {
+    "@guanghechen/option-helper": "^1.4.1",
+    "@yozora/ast": "1.0.0-alpha.12",
     "@yozora/parser-gfm": "1.0.0-alpha.12",
     "gray-matter": "^4.0.2"
   },

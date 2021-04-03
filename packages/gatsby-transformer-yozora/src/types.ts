@@ -41,7 +41,18 @@ export interface TransformerYozoraOptions {
    * - createSchemaCustomization for gatsby
    */
   plugins?: Array<{
+    /**
+     * Plugin name, if not present, the value of property `resolve` will be the
+     * fallback.
+     */
+    name?: string
+    /**
+     * The entry filepath or a npm package name of the plugin.
+     */
     resolve: string
+    /**
+     * Plugin options.
+     */
     options: any
   }>
 }
