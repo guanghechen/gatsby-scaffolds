@@ -1,4 +1,19 @@
+import type { Root } from '@yozora/ast'
 import type { Tokenizer } from '@yozora/core-tokenizer'
+import type { GatsbyCache, Node, Reporter } from 'gatsby'
+
+/**
+ * Api passed to the options.plugins
+ */
+export interface AstMutateApi {
+  files: Node[]
+  markdownNode: Node
+  markdownAst: Root
+  pathPrefix: string
+  getNode(id: string): Node
+  reporter: Reporter
+  cache: GatsbyCache
+}
 
 /**
  * Options of `@guanghechen/gatsby-transformer-yozora`

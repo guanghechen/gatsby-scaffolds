@@ -1,11 +1,5 @@
 import { isFunction } from '@guanghechen/option-helper'
-import type {
-  Root,
-  YastLiteral,
-  YastNode,
-  YastParent,
-  YastResource,
-} from '@yozora/ast'
+import type { Root, YastLiteral, YastParent } from '@yozora/ast'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import type { TransformerYozoraOptions } from './types'
 import { isEnvProduction } from './util/env'
@@ -97,7 +91,7 @@ export async function setFieldsOnGraphQLNodeType(
           await defaultFunction(
             {
               ...api,
-              markdownAST: ast,
+              markdownAst: ast,
               markdownNode,
               files: fileNodes,
               urlPrefix,

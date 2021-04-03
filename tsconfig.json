@@ -9,7 +9,8 @@
       ],
       "@guanghechen/gatsby-transformer-yozora": [
         "packages/gatsby-transformer-yozora/src"
-      ]
+      ],
+      "@guanghechen/gatsby-yozora-images": ["packages/gatsby-yozora-images/src"]
     }
   },
   "exclude": ["**/__test__/fixtures"]
