@@ -12,7 +12,7 @@ import { getImageInfo, isRelativeUrl, traverseYozoraAST } from './util'
 type ImageNode = YastNode & YastResource & YastAlternative
 
 async function mutateYozoraAst(
-  { files, cache, markdownNode, markdownAst, reporter, getNode }: AstMutateApi,
+  { files, cache, markdownNode, markdownAST, reporter, getNode }: AstMutateApi,
   options: GatsbyYozoraImagesOptions,
 ): Promise<unknown> {
   // Takes a node and generates the needed images and then returns
@@ -76,7 +76,7 @@ async function mutateYozoraAst(
 
   const markdownImageNodes: ImageNode[] = []
   traverseYozoraAST(
-    markdownAst,
+    markdownAST,
     (node: YastNode) => markdownImageNodes.push(node as ImageNode),
     [DefinitionType, ImageType],
   )

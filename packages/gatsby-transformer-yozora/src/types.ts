@@ -8,7 +8,7 @@ import type { GatsbyCache, Node, Reporter } from 'gatsby'
 export interface AstMutateApi {
   files: Node[]
   markdownNode: Node
-  markdownAst: Root
+  markdownAST: Root
   pathPrefix: string
   getNode(id: string): Node
   reporter: Reporter

@@ -91,7 +91,7 @@ export async function setFieldsOnGraphQLNodeType(
           await defaultFunction(
             {
               ...api,
-              markdownAst: ast,
+              markdownAST: ast,
               markdownNode,
               files: fileNodes,
               urlPrefix,
