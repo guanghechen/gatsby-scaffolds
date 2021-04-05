@@ -1,7 +1,7 @@
+import { isDate } from '@guanghechen/option-helper'
 import type { CreateNodeArgs, Node, NodeInput } from 'gatsby'
 import frontmatter from 'gray-matter'
 import type { TransformerYozoraOptions } from './types'
-import { isDate } from './util/is'
 
 /**
  *
@@ -38,7 +38,8 @@ export async function onCreateNode(
 
   try {
     const content = await loadNodeContent(node)
-    const data = frontmatter(content, options.frontmatter ?? {})
+    const { slugField, ...grayMatterOptions } = options.frontmatter ?? {}
+    const data = frontmatter(content, grayMatterOptions)
 
     // format data
     if (data.data) {
@@ -78,9 +79,12 @@ export async function onCreateNode(
     return markdownNode
   } catch (error) {
     reporter.panicOnBuild(
-      'Error processing Markdown ' + node.absolutePath
-        ? `file ${node.absolutePath}`
-        : `in node ${node.id}` + ':\n\n' + error.message,
+      'Error processing Markdown ' +
+        (node.absolutePath
+          ? `file ${node.absolutePath}`
+          : `in node ${node.id}`) +
+        ':\n\n' +
+        error.message,
     )
   }
 }

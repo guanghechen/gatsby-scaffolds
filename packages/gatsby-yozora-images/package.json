@@ -1,5 +1,5 @@
 {
-  "name": "@guanghechen/gatsby-transformer-yozora",
+  "name": "@guanghechen/gatsby-yozora-images",
   "version": "1.0.1",
   "description": "Transform markdown files to Yozora AST",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/gatsby-scaffolds.git",
-    "directory": "packages/gatsby-transformer-yozora"
+    "directory": "packages/gatsby-yozora-images"
   },
-  "homepage": "https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-transformer-yozora#readme",
+  "homepage": "https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-yozora-images#readme",
   "keywords": [
     "gatsby",
     "gatsby plugin",
@@ -19,7 +19,7 @@
     "gfm",
     "yozora markdown"
   ],
-  "main": "gatsby-node.js",
+  "main": "lib/cjs/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -41,12 +41,13 @@
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
   },
   "dependencies": {
-    "@guanghechen/option-helper": "^1.4.1",
-    "@yozora/ast": "1.0.0-alpha.12",
-    "@yozora/parser-gfm": "1.0.0-alpha.12",
-    "gray-matter": "^4.0.2"
+    "@yozora/ast": "^1.0.0-alpha.12",
+    "chalk": "^4.1.0",
+    "gatsby-core-utils": "^2.2.0",
+    "query-string": "^7.0.0"
   },
   "peerDependencies": {
-    "gatsby": "^3.0.0-next.0"
+    "gatsby": "^3.0.0-next.0",
+    "gatsby-plugin-sharp": "^3.0.0-next.0"
   }
 }

@@ -1,8 +1,12 @@
+import { isFunction } from '@guanghechen/option-helper'
 import type { Root, YastLiteral, YastParent } from '@yozora/ast'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import type { TransformerYozoraOptions } from './types'
+import { isEnvProduction } from './util/env'
+import { resolveUrl } from './util/url'
 import { parseMarkdown, shallowCloneAst } from './util/yast'
 
+let fileNodes: Node[] | null = null
 const astPromiseMap = new Map<string, Promise<Root>>()
 
 /**
@@ -17,7 +21,8 @@ export async function setFieldsOnGraphQLNodeType(
   api: SetFieldsOnGraphQLNodeTypeArgs,
   options: TransformerYozoraOptions,
 ): Promise<any> {
-  const { cache, pathPrefix } = api
+  const { slugField = 'slug' } = options.frontmatter || {}
+  const urlPrefix: string = resolveUrl(api.pathPrefix, api.basePath as string)
 
   /**
    * Calc Yast Root from markdownNode.
@@ -26,32 +31,98 @@ export async function setFieldsOnGraphQLNodeType(
    * @returns
    */
   async function getAst(markdownNode: Node): Promise<Root> {
-    const cacheKey = 'transformer-yozora-ast:' + markdownNode.id
+    const cacheKey =
+      'transformer-yozora-markdown-ast:' + markdownNode.internal.contentDigest
 
     // Check from cache.
-    const cachedAST = await cache.get(cacheKey)
+    const cachedAST = await api.cache.get(cacheKey)
     if (cachedAST != null) return cachedAST
 
     // Check from promise cache.
     const promise = astPromiseMap.get(cacheKey)
     if (promise != null) return await promise
 
-    const astPromise = parseMarkdown(
-      markdownNode.internal.content || '',
-      options,
-      pathPrefix,
-    )
+    // Get all file nodes.
+    if (!isEnvProduction || fileNodes == null) {
+      fileNodes = api.getNodesByType('File')
+    }
+
+    // Execute hooks to mutate source contents before parse processing.
+    const plugins = options.plugins || []
+    for (const plugin of plugins) {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const requiredPlugin = require(plugin.resolve)
+      if (isFunction(requiredPlugin.mutateSource)) {
+        await requiredPlugin.mutateSource(
+          {
+            ...api,
+            markdownNode,
+            files: fileNodes,
+            urlPrefix,
+            cache: (api.getCache as any)(plugin.name ?? plugin.resolve),
+          },
+          plugin.options,
+        )
+      }
+    }
+
+    const slug: string = (markdownNode as any).frontmatter[slugField] ?? ''
+    const astPromise: Promise<Root> = (async function (): Promise<Root> {
+      const ast: Root = parseMarkdown(
+        markdownNode.internal.content || '',
+        options,
+        url => {
+          if (/^[/](?![/])/.test(url)) return resolveUrl(urlPrefix, slug, url)
+          return url
+        },
+      )
+
+      // Execute hooks to mutate ast.
+      const plugins = options.plugins ?? []
+      for (const plugin of plugins) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const requiredPlugin = require(plugin.resolve)
+
+        // Allow both exports = function(), and exports.default = function()
+        const defaultFunction = isFunction(requiredPlugin)
+          ? requiredPlugin
+          : isFunction(requiredPlugin.default)
+          ? requiredPlugin.default
+          : undefined
+
+        if (defaultFunction) {
+          await defaultFunction(
+            {
+              ...api,
+              markdownAST: ast,
+              markdownNode,
+              files: fileNodes,
+              urlPrefix,
+              cache: (api.getCache as any)(plugin.name ?? plugin.resolve),
+            },
+            plugin.options,
+          )
+        }
+      }
+      return ast
+    })()
     astPromiseMap.set(cacheKey, astPromise)
 
     try {
       const ast = await astPromise
-      await cache.set(cacheKey, ast)
+      await api.cache.set(cacheKey, ast)
       return ast
     } finally {
       astPromiseMap.delete(cacheKey)
     }
   }
 
+  /**
+   * Calc Yozora Markdown AST of excerpt content.
+   * @param fullAst
+   * @param param1
+   * @returns
+   */
   async function getExcerptAst(
     fullAst: Root,
     { pruneLength, excerptSeparator }: GetExcerptAstOptions,
