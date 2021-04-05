@@ -50,7 +50,8 @@ export async function setFieldsOnGraphQLNodeType(
     // Execute hooks to mutate source contents before parse processing.
     const plugins = options.plugins || []
     for (const plugin of plugins) {
-      const requiredPlugin = await import(plugin.resolve)
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const requiredPlugin = require(plugin.resolve)
       if (isFunction(requiredPlugin.mutateSource)) {
         await requiredPlugin.mutateSource(
           {
@@ -79,7 +80,9 @@ export async function setFieldsOnGraphQLNodeType(
       // Execute hooks to mutate ast.
       const plugins = options.plugins ?? []
       for (const plugin of plugins) {
-        const requiredPlugin = await import(plugin.resolve)
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const requiredPlugin = require(plugin.resolve)
+
         // Allow both exports = function(), and exports.default = function()
         const defaultFunction = isFunction(requiredPlugin)
           ? requiredPlugin

@@ -18,7 +18,7 @@ export interface ResolvedImageData {
   alt: string
   title: string
   src: string
-  srcset: string
+  srcSet: string
   sizes: string
   loading: 'lazy' | 'eager' | 'auto'
 }

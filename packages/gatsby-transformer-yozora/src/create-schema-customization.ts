@@ -39,7 +39,8 @@ export async function createSchemaCustomization(
    */
   const plugins = options.plugins ?? []
   for (const plugin of plugins) {
-    const resolvedPlugin = await import(plugin.resolve)
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const resolvedPlugin = require(plugin.resolve)
     if (isFunction(resolvedPlugin.createSchemaCustomization)) {
       resolvedPlugin.createSchemaCustomization(api, plugin.options)
     }
