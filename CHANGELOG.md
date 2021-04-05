@@ -1,5 +1,36 @@
 # Changelog
 
+<a name="1.1.0"></a>
+## 1.1.0 (2021-04-05)
+
+### Added
+
+- ✨ feat: add new sub-package @guanghechen/gatsby-yozora-images [[190b58a](https://github.com/guanghechen/gatsby-scaffolds/commit/190b58a23becc6bfe5eeb649399f42a34f26dd00)]
+
+### Changed
+
+- 🔧 chore: add batch-link script [[ee97988](https://github.com/guanghechen/gatsby-scaffolds/commit/ee97988116d12416e03922606fddc38022dc3fba)]
+- 🔧 chore: update typescript path alias [[61bb03a](https://github.com/guanghechen/gatsby-scaffolds/commit/61bb03ac796116427276175173a1db1622dcec95)]
+- 🔧 chore: add missed dev dependencies [[7081fa3](https://github.com/guanghechen/gatsby-scaffolds/commit/7081fa31b5f44a2664f06e7458f90d51caa1f8a3)]
+- 🔧 chore: upgrade dependencies &amp; lint codes [[4fef4ee](https://github.com/guanghechen/gatsby-scaffolds/commit/4fef4ee7430dc28d812df8a0a3cf74a32dabf054)]
+
+### Breaking changes
+
+- 💥 feat: rename markdownAst to markdownAST [[e2be710](https://github.com/guanghechen/gatsby-scaffolds/commit/e2be71042a45050e1198cbebb1f68a917018a512)]
+
+### Fixed
+
+- 🐛 fix: fix the @guanghe/gatsby-yozora-images not working issue. [[87cbac7](https://github.com/guanghechen/gatsby-scaffolds/commit/87cbac7ca13fc15946c65f445d64e1abb773165b)]
+- 🐛 fix: markdown contents not reload [[ea2f7dd](https://github.com/guanghechen/gatsby-scaffolds/commit/ea2f7ddd247b5c026f51e509ea0bc1437178fb96)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[20f10ee](https://github.com/guanghechen/gatsby-scaffolds/commit/20f10ee081ff9406b244c16ed3ad513b9c1ef842)]
+- 🚧 feat: support plugins like what the gatsby-tranformer-remark do [[41a5c05](https://github.com/guanghechen/gatsby-scaffolds/commit/41a5c055db128deb282d302e1308ae56c72802aa)]
+- 🚧 [gatsby-transformer-yozora] feat: resolve urls with slug [[82c9cb9](https://github.com/guanghechen/gatsby-scaffolds/commit/82c9cb92cf5bff320d9010e584b2a855d041d85b)]
+- 📝 docs: update CHANGELOG [[0076821](https://github.com/guanghechen/gatsby-scaffolds/commit/0076821632e56c3b2daca06044fe2b24be142bd8)]
+
+
 <a name="1.0.1"></a>
 ## 1.0.1 (2021-03-30)
 
