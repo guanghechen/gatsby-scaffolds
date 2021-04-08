@@ -173,6 +173,52 @@ export async function setFieldsOnGraphQLNodeType(
   }
 
   return {
+    access: {
+      type: 'String',
+      async resolve(markdownNode: Node): Promise<string> {
+        const { access } = (markdownNode.frontmatter ?? {}) as Record<
+          string,
+          string
+        >
+        return access ?? 'public'
+      },
+    },
+    title: {
+      type: 'String',
+      async resolve(markdownNode: Node): Promise<string> {
+        const { title } = (markdownNode.frontmatter ?? {}) as Record<
+          string,
+          string
+        >
+        if (title != null) return title
+
+        // Try to resolve the markdownNode relative filepath,
+        // otherwise, return it id.
+        const parent: Node = api.getNode(markdownNode.parent!)
+        if (parent == null) return markdownNode.id
+        return (parent.relativePath as string) ?? markdownNode.id
+      },
+    },
+    createAt: {
+      type: 'JSON',
+      async resolve(markdownNode: Node): Promise<string> {
+        const { createAt, date } = (markdownNode.frontmatter ?? {}) as Record<
+          string,
+          string
+        >
+        return createAt ?? date ?? new Date().toJSON()
+      },
+    },
+    updateAt: {
+      type: 'JSON',
+      async resolve(markdownNode: Node): Promise<string> {
+        const { updateAt, date } = (markdownNode.frontmatter ?? {}) as Record<
+          string,
+          string
+        >
+        return updateAt ?? date ?? new Date().toJSON()
+      },
+    },
     ast: {
       type: 'JSON',
       async resolve(markdownNode: Node): Promise<Root> {

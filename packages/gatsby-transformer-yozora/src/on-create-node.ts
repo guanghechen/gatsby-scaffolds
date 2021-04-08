@@ -46,7 +46,7 @@ export async function onCreateNode(
       const formattedData = {}
       for (const [key, val] of Object.entries(data.data)) {
         if (isDate(val)) formattedData[key] = val.toJSON()
-        formattedData[key] = val
+        else formattedData[key] = val
       }
       data.data = formattedData
     }
@@ -62,10 +62,7 @@ export async function onCreateNode(
         content: rawMarkdownBody,
       } as Partial<Node['internal']>) as Node['internal'],
       excerpt: data.excerpt,
-      frontmatter: {
-        title: '',
-        ...data.data,
-      },
+      frontmatter: { ...data.data },
     }
 
     // Add path to the markdown file path
