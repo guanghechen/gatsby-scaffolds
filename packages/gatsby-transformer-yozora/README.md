@@ -72,7 +72,12 @@ Add configs in `gatsby-config.js`:
 
 ```javascript
 // gatsby-config.js
+const { InlineMathTokenizer } = require('@yozora/tokenizer-inline-math')
+
 module.exports = {
+  tokenizers: [ // additional tokenizers (optional)
+    new InlineMathTokenizer({ priority: 10 }),
+  ],
   plugins: [
     {
       resolve: '@guanghechen/gatsby-transformer-yozora',

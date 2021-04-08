@@ -7,6 +7,10 @@ import type {
 } from '@yozora/ast'
 import { DefinitionType, ImageType, LinkType } from '@yozora/ast'
 import type { YastParser } from '@yozora/core-parser'
+import type {
+  BlockFallbackTokenizer,
+  InlineFallbackTokenizer,
+} from '@yozora/core-tokenizer'
 import { createExGFMParser, createGFMParser } from '@yozora/parser-gfm'
 import type { TransformerYozoraOptions } from '../types'
 
@@ -94,10 +98,29 @@ export function getParser(options: TransformerYozoraOptions): YastParser {
     return _parser
   }
 
-  _parser = gfmEx
-    ? createExGFMParser({ shouldReservePosition })
-    : createGFMParser({ shouldReservePosition })
+  const {
+    parser,
+    inlineFallbackTokenizer,
+    blockFallbackTokenizer,
+    tokenizers = [],
+  } = options ?? {}
+
+  _parser =
+    parser ??
+    (gfmEx
+      ? createExGFMParser({ shouldReservePosition })
+      : createGFMParser({ shouldReservePosition }))
   _parserOptions = { gfmEx, shouldReservePosition }
+
+  for (const tokenizer of tokenizers) {
+    _parser.useTokenizer(tokenizer)
+  }
+  if (blockFallbackTokenizer != null) {
+    _parser.useBlockFallbackTokenizer(blockFallbackTokenizer)
+  }
+  if (inlineFallbackTokenizer != null) {
+    _parser.useInlineFallbackTokenizer(inlineFallbackTokenizer)
+  }
   return _parser
 }
 

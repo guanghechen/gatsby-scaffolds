@@ -1,5 +1,10 @@
 import type { Root } from '@yozora/ast'
-import type { Tokenizer } from '@yozora/core-tokenizer'
+import type { YastParser } from '@yozora/core-parser'
+import type {
+  BlockFallbackTokenizer,
+  InlineFallbackTokenizer,
+  Tokenizer,
+} from '@yozora/core-tokenizer'
 import type { GatsbyCache, Node, Reporter } from 'gatsby'
 
 /**
@@ -47,9 +52,21 @@ export interface TransformerYozoraOptions {
     delimiters?: string | [string, string]
   }
   /**
+   * Yozora markdown parser.
+   */
+  parser?: YastParser
+  /**
    * Additional Yozora tokenizers.
    */
   tokenizers?: Tokenizer[]
+  /**
+   * Inline fallback tokenizer
+   */
+  inlineFallbackTokenizer?: InlineFallbackTokenizer
+  /**
+   * Block fallback tokenizer
+   */
+  blockFallbackTokenizer?: BlockFallbackTokenizer
   /**
    * Plugins.
    *
