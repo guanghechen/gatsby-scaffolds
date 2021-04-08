@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.1.1"></a>
+## 1.1.1 (2021-04-08)
+
+### Changed
+
+- 🔧 chore: update yarn.lock [[c5eef66](https://github.com/guanghechen/gatsby-scaffolds/commit/c5eef66272d642604dd385c4a3743d25dfaba243)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[f744a90](https://github.com/guanghechen/gatsby-scaffolds/commit/f744a9021eb7ed6158a0fc2c883fe31d32bffdcb)]
+- 🚧 [gatsby-transformer-yozora] feat: export tags,categories from MarkdownYozora [[80214a1](https://github.com/guanghechen/gatsby-scaffolds/commit/80214a146d121c34a3c3ae09d93b60a5e0d87a2d)]
+- 🚧 [gatsby-transformer-yozora] feat: export access,title,createAt,updateAt from MarkdownYozora [[6ddbe94](https://github.com/guanghechen/gatsby-scaffolds/commit/6ddbe94505a1aa655c02a63f7ddcf8c22e423cf2)]
+- 🚧 feat: load tokenizers from plugin options [[b0e3082](https://github.com/guanghechen/gatsby-scaffolds/commit/b0e3082cde3cf949d9b3d1d234ed2ced6ff7103e)]
+- 📝 docs: update CHANGELOG [[cec3f75](https://github.com/guanghechen/gatsby-scaffolds/commit/cec3f759ce8da64eff95f40d05bb840f612c34d9)]
+
+
 <a name="1.1.0"></a>
 ## 1.1.0 (2021-04-05)
 
