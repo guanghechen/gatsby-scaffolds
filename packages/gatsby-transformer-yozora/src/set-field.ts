@@ -1,8 +1,10 @@
 import { isFunction } from '@guanghechen/option-helper'
 import type { Root, YastLiteral, YastParent } from '@yozora/ast'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
+import { resolve } from 'node:path'
 import type { TransformerYozoraOptions } from './types'
 import { isEnvProduction } from './util/env'
+import { normalizeTagOrCategory } from './util/string'
 import { resolveUrl } from './util/url'
 import { parseMarkdown, shallowCloneAst } from './util/yast'
 
@@ -173,6 +175,62 @@ export async function setFieldsOnGraphQLNodeType(
   }
 
   return {
+    access: {
+      type: 'String',
+      async resolve(markdownNode: Node): Promise<string> {
+        const { access } = (markdownNode.frontmatter ?? {}) as Record<
+          string,
+          string
+        >
+        return access ?? 'public'
+      },
+    },
+    title: {
+      type: 'String',
+      async resolve(markdownNode: Node): Promise<string> {
+        const { title } = (markdownNode.frontmatter ?? {}) as Record<
+          string,
+          string
+        >
+        if (title != null) return title
+
+        // Try to resolve the markdownNode relative filepath,
+        // otherwise, return it id.
+        const parent: Node = api.getNode(markdownNode.parent!)
+        if (parent == null) return markdownNode.id
+        return (parent.relativePath as string) ?? markdownNode.id
+      },
+    },
+    createAt: {
+      type: 'JSON',
+      async resolve(markdownNode: Node): Promise<string> {
+        const { createAt, date } = (markdownNode.frontmatter ?? {}) as any
+        return createAt ?? date ?? new Date().toJSON()
+      },
+    },
+    updateAt: {
+      type: 'JSON',
+      async resolve(markdownNode: Node): Promise<string> {
+        const { updateAt, date } = (markdownNode.frontmatter ?? {}) as any
+        return updateAt ?? date ?? new Date().toJSON()
+      },
+    },
+    tags: {
+      type: '[MarkdownYozoraTag]!',
+      async resolve(markdownNode: Node): Promise<string[]> {
+        const { tags = [] } = (markdownNode.frontmatter ?? {}) as any
+        return tags.map(normalizeTagOrCategory)
+      },
+    },
+    categories: {
+      type: '[[MarkdownYozoraCategoryItem]]!',
+      async resolve(markdownNode: Node): Promise<string[]> {
+        const { categories = [] } = (markdownNode.frontmatter ?? {}) as any
+        return categories.map((category: string[]) =>
+          category.map(normalizeTagOrCategory),
+        )
+      },
+    },
     ast: {
       type: 'JSON',
       async resolve(markdownNode: Node): Promise<Root> {
