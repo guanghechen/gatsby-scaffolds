@@ -12,6 +12,16 @@ const typeDefs = `
     h6
   }
 
+  type MarkdownYozoraTag {
+    title: String!
+    identifier: String!
+  }
+
+  type MarkdownYozoraCategoryItem {
+    title: String!
+    identifier: String!
+  }
+
   type MarkdownYozora implements Node @infer @childOf(mimeTypes: ["text/markdown", "text/x-markdown"]) {
     id: ID!
     access: String!
@@ -19,6 +29,8 @@ const typeDefs = `
     createAt: String!
     updateAt: String!
     excerpt: String!
+    tags: [String]!
+    categories: [[String]]!
     ast: JSON!
   }
 `
