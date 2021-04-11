@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="1.2.0"></a>
+## 1.2.0 (2021-04-11)
+
+### Miscellaneous
+
+- 🚧 [gatsby-transformer-yozora] feat: upgrade @yozora/parser [[2e3df5b](https://github.com/guanghechen/gatsby-scaffolds/commit/2e3df5b1a09827957649bec464d3b979d3444e86)]
+- 📝 docs: update CHANGELOG [[6de8555](https://github.com/guanghechen/gatsby-scaffolds/commit/6de85556b1395b12d07b21d826b8fb876a703809)]
+
+
 <a name="1.1.1"></a>
 ## 1.1.1 (2021-04-08)
 
