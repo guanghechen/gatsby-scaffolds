@@ -1,4 +1,3 @@
-import type { Root, YastNode, YastNodeType, YastParent } from '@yozora/ast'
 import path from 'path'
 import queryString from 'query-string'
 
@@ -36,37 +35,4 @@ export function isRelativeUrl(url: string): boolean {
   // Scheme: https://tools.ietf.org/html/rfc3986#section-3.1
   // Absolute URL: https://tools.ietf.org/html/rfc3986#section-4.3
   return !/^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(url)
-}
-
-/**
- * Traverse yozora AST, and provide an opportunity to perform an action on
- * visited node.
- *
- * Note that the root node will not be traversed, that is, the root node will
- * never be passed into the `mutate` function..
- *
- * @param root
- * @param mutate
- * @param types
- */
-export function traverseYozoraAST(
-  root: Root,
-  mutate: (node: YastNode, parent: YastParent, childIndex: number) => void,
-  types: YastNodeType[] = [],
-): void {
-  const visit = (u: YastNode): void => {
-    const { children } = u as YastParent
-
-    // Recursively visit.
-    if (children != null) {
-      for (let i = 0; i < children.length; ++i) {
-        const v = children[i]
-        if (types.indexOf(v.type) > -1) {
-          mutate(v, (u as unknown) as YastParent, i)
-        }
-        visit(v)
-      }
-    }
-  }
-  visit(root)
 }

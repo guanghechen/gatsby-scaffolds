@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@yozora/ast": "^1.0.0-alpha.15",
+    "@yozora/ast-util": "^1.0.0-alpha.15",
     "chalk": "^4.1.0",
     "gatsby-core-utils": "^2.2.0",
     "query-string": "^7.0.0"

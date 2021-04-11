@@ -1,13 +1,14 @@
 import type { AstMutateApi } from '@guanghechen/gatsby-transformer-yozora'
 import type { Image, ImageReference, YastNode } from '@yozora/ast'
 import { ImageReferenceType, ImageType } from '@yozora/ast'
+import { traverseAST } from '@yozora/ast-util'
 import chalk from 'chalk'
 import { slash } from 'gatsby-core-utils'
 import { fluid } from 'gatsby-plugin-sharp'
 import path from 'path'
 import { EMPTY_ALT } from './constant'
 import type { GatsbyYozoraImagesOptions, ResolvedImageData } from './types'
-import { getImageInfo, isRelativeUrl, traverseYozoraAST } from './util'
+import { getImageInfo, isRelativeUrl } from './util'
 
 type ImageNode = YastNode &
   Omit<Image, 'type'> &
@@ -51,10 +52,9 @@ function mutateYozoraAst(
   const options = { ...defaultFluidArgs, pathPrefix, ...pluginOptions }
   const { definitions } = markdownAST.meta
   const markdownImageNodes: ImageNode[] = []
-  traverseYozoraAST(
-    markdownAST,
-    (node: YastNode) => markdownImageNodes.push((node as unknown) as ImageNode),
-    [ImageReferenceType, ImageType],
+
+  traverseAST(markdownAST, [ImageReferenceType, ImageType], node =>
+    markdownImageNodes.push((node as unknown) as ImageNode),
   )
 
   // Takes a node and generates the needed images and then returns
