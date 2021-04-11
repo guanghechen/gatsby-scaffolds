@@ -25,11 +25,6 @@ export interface AstMutateApi {
  */
 export interface TransformerYozoraOptions {
   /**
-   * Whether if enable GFM extensions
-   * @default false
-   */
-  gfmEx?: boolean
-  /**
    * Whether if reserve positions from the ast.
    * @default false
    */

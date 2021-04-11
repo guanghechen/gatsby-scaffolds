@@ -42,8 +42,9 @@
   },
   "dependencies": {
     "@guanghechen/option-helper": "^1.4.1",
-    "@yozora/ast": "1.0.0-alpha.12",
-    "@yozora/parser-gfm": "1.0.0-alpha.12",
+    "@yozora/ast": "1.0.0-alpha.14",
+    "@yozora/ast-util": "1.0.0-alpha.14",
+    "@yozora/parser": "1.0.0-alpha.14",
     "gray-matter": "^4.0.2"
   },
   "peerDependencies": {

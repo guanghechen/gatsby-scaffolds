@@ -1,12 +1,12 @@
 import { isFunction } from '@guanghechen/option-helper'
 import type { Root, YastLiteral, YastParent } from '@yozora/ast'
+import { shallowCloneAst } from '@yozora/ast-util'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
-import { resolve } from 'node:path'
 import type { TransformerYozoraOptions } from './types'
 import { isEnvProduction } from './util/env'
 import { normalizeTagOrCategory } from './util/string'
 import { resolveUrl } from './util/url'
-import { parseMarkdown, shallowCloneAst } from './util/yast'
+import { parseMarkdown } from './util/yast'
 
 let fileNodes: Node[] | null = null
 const astPromiseMap = new Map<string, Promise<Root>>()
