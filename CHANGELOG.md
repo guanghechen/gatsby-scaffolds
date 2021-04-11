@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="1.2.1"></a>
+## 1.2.1 (2021-04-11)
+
+### Changed
+
+- 🔧 chore: update yarn.lock [[f20a412](https://github.com/guanghechen/gatsby-scaffolds/commit/f20a41202cb1911851b12c7d20fb3db2c224057a)]
+- 🎨 [gatsby-yozora-image] improve: use @yozora/ast-util to simplify codes [[d4ca1a6](https://github.com/guanghechen/gatsby-scaffolds/commit/d4ca1a62cbd4dfa7c0d9c8230b9a2ddbb1f94f6f)]
+- ⬆️ chore: upgrade dependencies [[74df46b](https://github.com/guanghechen/gatsby-scaffolds/commit/74df46be484040536939011f6fd7c2b17769704c)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[a47d883](https://github.com/guanghechen/gatsby-scaffolds/commit/a47d8837018b6a668f058213c5dcfb260f38a9be)]
+
+
 <a name="1.2.0"></a>
 ## 1.2.0 (2021-04-11)
 
