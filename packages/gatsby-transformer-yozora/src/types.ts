@@ -1,5 +1,5 @@
 import type { Root } from '@yozora/ast'
-import type { YastParser } from '@yozora/core-parser'
+import type { DefaultYastParserProps, YastParser } from '@yozora/core-parser'
 import type {
   BlockFallbackTokenizer,
   InlineFallbackTokenizer,
@@ -25,10 +25,14 @@ export interface AstMutateApi {
  */
 export interface TransformerYozoraOptions {
   /**
-   * Whether if reserve positions from the ast.
-   * @default false
+   * parser options
    */
-  shouldReservePosition?: boolean
+  parserOptions?: DefaultYastParserProps & any
+  /**
+   * prefix of heading.identifier
+   * @default 'heading-'
+   */
+  headingIdentifierPrefix?: string
   /**
    * Options for `gray-matter`
    */

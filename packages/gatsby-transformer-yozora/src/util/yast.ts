@@ -6,7 +6,6 @@ import YozoraParser from '@yozora/parser'
 import type { TransformerYozoraOptions } from '../types'
 
 let _parser: YastParser | null = null
-const _parserOptions: TransformerYozoraOptions = {}
 
 /**
  * Get yozora parser.
@@ -15,13 +14,7 @@ const _parserOptions: TransformerYozoraOptions = {}
  * @returns
  */
 export function getParser(options: TransformerYozoraOptions): YastParser {
-  const { shouldReservePosition = false } = options ?? {}
-  if (
-    _parser != null &&
-    shouldReservePosition === _parserOptions.shouldReservePosition
-  ) {
-    return _parser
-  }
+  if (_parser != null) return _parser
 
   const {
     parser,
@@ -30,8 +23,7 @@ export function getParser(options: TransformerYozoraOptions): YastParser {
     tokenizers = [],
   } = options ?? {}
 
-  _parser = parser ?? new YozoraParser({ shouldReservePosition })
-  _parserOptions.shouldReservePosition = shouldReservePosition
+  _parser = parser ?? new YozoraParser(options.parserOptions)
 
   for (const tokenizer of tokenizers) {
     _parser.useTokenizer(tokenizer)

@@ -1,6 +1,6 @@
 import { isFunction } from '@guanghechen/option-helper'
-import type { Root, YastLiteral, YastParent } from '@yozora/ast'
-import { shallowCloneAst } from '@yozora/ast-util'
+import type { HeadingToc, Root, YastLiteral, YastParent } from '@yozora/ast'
+import { calcHeadingToc, shallowCloneAst } from '@yozora/ast-util'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import type { TransformerYozoraOptions } from './types'
 import { isEnvProduction } from './util/env'
@@ -229,6 +229,17 @@ export async function setFieldsOnGraphQLNodeType(
         return categories.map((category: string[]) =>
           category.map(normalizeTagOrCategory),
         )
+      },
+    },
+    toc: {
+      type: 'MarkdownYozoraToc!',
+      async resolve(markdownNode: Node): Promise<HeadingToc> {
+        const ast = await getAst(markdownNode)
+        const toc = calcHeadingToc(
+          ast,
+          options.headingIdentifierPrefix ?? 'heading-',
+        )
+        return toc
       },
     },
     ast: {

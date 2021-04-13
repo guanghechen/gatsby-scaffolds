@@ -12,6 +12,17 @@ const typeDefs = `
     h6
   }
 
+  type MarkdownYozoraTocNode {
+    depth: MarkdownHeadingLevels!
+    identifier: String!
+    contents: JSON!
+    children: [MarkdownYozoraTocNode]!
+  }
+
+  type MarkdownYozoraToc {
+    children: JSON!
+  }
+
   type MarkdownYozoraTag {
     title: String!
     identifier: String!
@@ -29,8 +40,9 @@ const typeDefs = `
     createAt: String!
     updateAt: String!
     excerpt: String!
-    tags: [String]!
-    categories: [[String]]!
+    tags: [MarkdownYozoraTag]!
+    categories: [[MarkdownYozoraCategoryItem]]!
+    toc: MarkdownYozoraToc!
     ast: JSON!
   }
 `
