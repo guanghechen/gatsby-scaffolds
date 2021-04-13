@@ -1,12 +1,19 @@
 import { isFunction } from '@guanghechen/option-helper'
-import type { HeadingToc, Root, YastLiteral, YastParent } from '@yozora/ast'
-import { calcHeadingToc, shallowCloneAst } from '@yozora/ast-util'
+import type {
+  HeadingToc,
+  Root,
+  YastLiteral,
+  YastNode,
+  YastParent,
+  YastResource,
+} from '@yozora/ast'
+import { DefinitionType, ImageType, LinkType } from '@yozora/ast'
+import { calcHeadingToc, shallowCloneAst, traverseAST } from '@yozora/ast-util'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import type { TransformerYozoraOptions } from './types'
 import { isEnvProduction } from './util/env'
 import { normalizeTagOrCategory } from './util/string'
 import { resolveUrl } from './util/url'
-import { parseMarkdown } from './util/yast'
 
 let fileNodes: Node[] | null = null
 const astPromiseMap = new Map<string, Promise<Root>>()
@@ -25,6 +32,36 @@ export async function setFieldsOnGraphQLNodeType(
 ): Promise<any> {
   const { slugField = 'slug' } = options.frontmatter || {}
   const urlPrefix: string = resolveUrl(api.pathPrefix, api.basePath as string)
+  const { parser } = options
+
+  /**
+   * Parse markdown contents & resolve url references.
+   *
+   * @param content
+   * @param options
+   * @param basePath
+   * @returns
+   */
+  function parseMarkdown(
+    content: string,
+    resolveUrl?: (url: string) => string,
+  ): Root {
+    const ast = parser.parse(content)
+
+    // Correct url paths.
+    if (resolveUrl != null) {
+      traverseAST(ast, [DefinitionType, LinkType, ImageType], node => {
+        const o = node as YastNode & YastResource
+        if (o.url != null) o.url = resolveUrl(o.url)
+      })
+
+      for (const definition of Object.values(ast.meta.definitions)) {
+        definition.url = resolveUrl(definition.url)
+      }
+    }
+
+    return ast
+  }
 
   /**
    * Calc Yast Root from markdownNode.
@@ -72,7 +109,6 @@ export async function setFieldsOnGraphQLNodeType(
     const astPromise: Promise<Root> = (async function (): Promise<Root> {
       const ast: Root = parseMarkdown(
         markdownNode.internal.content || '',
-        options,
         url => {
           if (/^[/](?![/])/.test(url)) return resolveUrl(urlPrefix, slug, url)
           return url
