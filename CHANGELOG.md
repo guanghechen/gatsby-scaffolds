@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.3.0"></a>
+## 1.3.0 (2021-04-13)
+
+### Added
+
+- ✨ [gatsby-transformer-yozora] feat: support toc and preset definitions [[71f9d13](https://github.com/guanghechen/gatsby-scaffolds/commit/71f9d13343922cc6e83f3989a071d2ed6c79dd2d)]
+
+### Miscellaneous
+
+- 🚧 feat: change plugin options &amp; update README [[6ccbd81](https://github.com/guanghechen/gatsby-scaffolds/commit/6ccbd81fd19493befd0533f7f83d007bbf1e020e)]
+- 📝 docs: update CHANGELOG [[e0632ab](https://github.com/guanghechen/gatsby-scaffolds/commit/e0632abcb04e72e46dc46b7b59db4b6d54defb8e)]
+
+
 <a name="1.2.1"></a>
 ## 1.2.1 (2021-04-11)
 
