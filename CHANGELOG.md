@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="1.4.0"></a>
+## 1.4.0 (2021-04-17)
+
+### Changed
+
+- 🎨 [gatsby-transformer-yozora] improve: set &#x27;createAt&#x27; as the fallback of &#x27;updateAt&#x27; [[2c0fbbf](https://github.com/guanghechen/gatsby-scaffolds/commit/2c0fbbf8a373004997a2aa7154b7f0f5f72ae82c)]
+
+### Miscellaneous
+
+- 🚧 [gatsby-transformer-yozora] feat: perform url resolving after plugins procecced [[66dc5ec](https://github.com/guanghechen/gatsby-scaffolds/commit/66dc5ec827ecd3139d24e9643f92a98a55edfd73)]
+- 🚧 [gatsby-transformer-yozora] feat: auto serve relative contents [[41c014b](https://github.com/guanghechen/gatsby-scaffolds/commit/41c014bcde45abc48a7e9eacc865a2c04744afcb)]
+- 📝 docs: update CHANGELOG [[7b83c27](https://github.com/guanghechen/gatsby-scaffolds/commit/7b83c27f132faeebbc0fd111472225b35a95cce3)]
+
+
 <a name="1.3.0"></a>
 ## 1.3.0 (2021-04-13)
 
