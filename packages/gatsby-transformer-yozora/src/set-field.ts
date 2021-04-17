@@ -247,8 +247,9 @@ export async function setFieldsOnGraphQLNodeType(
     updateAt: {
       type: 'JSON',
       async resolve(markdownNode: Node): Promise<string> {
-        const { updateAt, date } = (markdownNode.frontmatter ?? {}) as any
-        return updateAt ?? date ?? new Date().toJSON()
+        const { updateAt, createAt, date } = (markdownNode.frontmatter ??
+          {}) as any
+        return updateAt ?? createAt ?? date ?? new Date().toJSON()
       },
     },
     tags: {
