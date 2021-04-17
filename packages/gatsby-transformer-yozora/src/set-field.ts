@@ -10,10 +10,11 @@ import type {
 import { DefinitionType, ImageType, LinkType } from '@yozora/ast'
 import { calcHeadingToc, shallowCloneAst, traverseAST } from '@yozora/ast-util'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
+import path from 'path'
 import type { TransformerYozoraOptions } from './types'
-import { isEnvProduction } from './util/env'
+import env from './util/env'
 import { normalizeTagOrCategory } from './util/string'
-import { resolveUrl } from './util/url'
+import { resolveUrl, serveStaticFile } from './util/url'
 
 let fileNodes: Node[] | null = null
 const astPromiseMap = new Map<string, Promise<Root>>()
@@ -42,25 +43,39 @@ export async function setFieldsOnGraphQLNodeType(
    * @param basePath
    * @returns
    */
-  function parseMarkdown(
+  async function parseMarkdown(
     content: string,
-    resolveUrl?: (url: string) => string,
-  ): Root {
+    resolveUrl?: (url: string) => Promise<string | null>,
+  ): Promise<Root> {
     const ast = parser.parse(content)
+    const promises: Array<Promise<void>> = []
 
     // Correct url paths.
     if (resolveUrl != null) {
       traverseAST(ast, [DefinitionType, LinkType, ImageType], node => {
         const o = node as YastNode & YastResource
-        if (o.url != null) o.url = resolveUrl(o.url)
+        if (o.url != null) {
+          const promise = resolveUrl(o.url).then(url => {
+            o.url = url ?? o.url
+          })
+          promises.push(promise)
+        }
       })
 
       for (const definition of Object.values(ast.meta.definitions)) {
-        definition.url = resolveUrl(definition.url)
+        const promise = resolveUrl(definition.url).then(url => {
+          definition.url = url ?? definition.url
+        })
+        promises.push(promise)
       }
     }
 
-    return ast
+    try {
+      await Promise.all(promises)
+    } finally {
+      // eslint-disable-next-line no-unsafe-finally
+      return ast
+    }
   }
 
   /**
@@ -82,7 +97,7 @@ export async function setFieldsOnGraphQLNodeType(
     if (promise != null) return await promise
 
     // Get all file nodes.
-    if (!isEnvProduction || fileNodes == null) {
+    if (!env.isEnvProduction || fileNodes == null) {
       fileNodes = api.getNodesByType('File')
     }
 
@@ -107,11 +122,15 @@ export async function setFieldsOnGraphQLNodeType(
 
     const slug: string = (markdownNode as any).frontmatter[slugField] ?? ''
     const astPromise: Promise<Root> = (async function (): Promise<Root> {
-      const ast: Root = parseMarkdown(
+      const absoluteDirPath = path.dirname(markdownNode.absolutePath as string)
+      const ast: Root = await parseMarkdown(
         markdownNode.internal.content || '',
-        url => {
-          if (/^[/](?![/])/.test(url)) return resolveUrl(urlPrefix, slug, url)
-          return url
+        (url: string): Promise<string | null> => {
+          if (/^[/](?![/])/.test(url)) {
+            return Promise.resolve(resolveUrl(urlPrefix, slug, url))
+          } else {
+            return serveStaticFile(path.join(absoluteDirPath, url))
+          }
         },
       )
 

@@ -44,6 +44,8 @@
     "@guanghechen/option-helper": "^1.4.1",
     "@yozora/ast": "^1.0.0-alpha.16",
     "@yozora/ast-util": "^1.0.0-alpha.16",
+    "@types/fs-extra": "^9.0.11",
+    "fs-extra": "^9.1.0",
     "gray-matter": "^4.0.2"
   },
   "peerDependencies": {
