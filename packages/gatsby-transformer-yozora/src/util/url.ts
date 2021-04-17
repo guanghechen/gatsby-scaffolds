@@ -1,8 +1,45 @@
 import { isNonBlankString } from '@guanghechen/option-helper'
+import type { Root, YastNode, YastResource } from '@yozora/ast'
+import { DefinitionType, ImageType, LinkType } from '@yozora/ast'
+import { traverseAST } from '@yozora/ast-util'
 import crypto from 'crypto'
 import fs from 'fs-extra'
 import path from 'path'
 import env from './env'
+
+/**
+ * Resolve ast urls.
+ * @param ast
+ * @param resolveUrl
+ */
+export async function resolveAstUrls(
+  ast: Root,
+  resolveUrl: (url: string) => Promise<string | null>,
+): Promise<void> {
+  const promises: Array<Promise<void>> = []
+  traverseAST(ast, [DefinitionType, LinkType, ImageType], node => {
+    const o = node as YastNode & YastResource
+    if (o.url != null) {
+      const promise = resolveUrl(o.url).then(url => {
+        o.url = url ?? o.url
+      })
+      promises.push(promise)
+    }
+  })
+
+  for (const definition of Object.values(ast.meta.definitions)) {
+    const promise = resolveUrl(definition.url).then(url => {
+      definition.url = url ?? definition.url
+    })
+    promises.push(promise)
+  }
+
+  try {
+    await Promise.all(promises)
+  } catch (error) {
+    console.error('[resolveAstUrls] error:', error)
+  }
+}
 
 /**
  * Join url path with `prefix` and normalize the result.

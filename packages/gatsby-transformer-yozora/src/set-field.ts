@@ -1,20 +1,12 @@
 import { isFunction } from '@guanghechen/option-helper'
-import type {
-  HeadingToc,
-  Root,
-  YastLiteral,
-  YastNode,
-  YastParent,
-  YastResource,
-} from '@yozora/ast'
-import { DefinitionType, ImageType, LinkType } from '@yozora/ast'
-import { calcHeadingToc, shallowCloneAst, traverseAST } from '@yozora/ast-util'
+import type { HeadingToc, Root, YastLiteral, YastParent } from '@yozora/ast'
+import { calcHeadingToc, shallowCloneAst } from '@yozora/ast-util'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import path from 'path'
 import type { TransformerYozoraOptions } from './types'
 import env from './util/env'
 import { normalizeTagOrCategory } from './util/string'
-import { resolveUrl, serveStaticFile } from './util/url'
+import { resolveAstUrls, resolveUrl, serveStaticFile } from './util/url'
 
 let fileNodes: Node[] | null = null
 const astPromiseMap = new Map<string, Promise<Root>>()
@@ -34,49 +26,6 @@ export async function setFieldsOnGraphQLNodeType(
   const { slugField = 'slug' } = options.frontmatter || {}
   const urlPrefix: string = resolveUrl(api.pathPrefix, api.basePath as string)
   const { parser } = options
-
-  /**
-   * Parse markdown contents & resolve url references.
-   *
-   * @param content
-   * @param options
-   * @param basePath
-   * @returns
-   */
-  async function parseMarkdown(
-    content: string,
-    resolveUrl?: (url: string) => Promise<string | null>,
-  ): Promise<Root> {
-    const ast = parser.parse(content)
-    const promises: Array<Promise<void>> = []
-
-    // Correct url paths.
-    if (resolveUrl != null) {
-      traverseAST(ast, [DefinitionType, LinkType, ImageType], node => {
-        const o = node as YastNode & YastResource
-        if (o.url != null) {
-          const promise = resolveUrl(o.url).then(url => {
-            o.url = url ?? o.url
-          })
-          promises.push(promise)
-        }
-      })
-
-      for (const definition of Object.values(ast.meta.definitions)) {
-        const promise = resolveUrl(definition.url).then(url => {
-          definition.url = url ?? definition.url
-        })
-        promises.push(promise)
-      }
-    }
-
-    try {
-      await Promise.all(promises)
-    } finally {
-      // eslint-disable-next-line no-unsafe-finally
-      return ast
-    }
-  }
 
   /**
    * Calc Yast Root from markdownNode.
@@ -123,16 +72,7 @@ export async function setFieldsOnGraphQLNodeType(
     const slug: string = (markdownNode as any).frontmatter[slugField] ?? ''
     const astPromise: Promise<Root> = (async function (): Promise<Root> {
       const absoluteDirPath = path.dirname(markdownNode.absolutePath as string)
-      const ast: Root = await parseMarkdown(
-        markdownNode.internal.content || '',
-        (url: string): Promise<string | null> => {
-          if (/^[/](?![/])/.test(url)) {
-            return Promise.resolve(resolveUrl(urlPrefix, slug, url))
-          } else {
-            return serveStaticFile(path.join(absoluteDirPath, url))
-          }
-        },
-      )
+      const ast: Root = parser.parse(markdownNode.internal.content || '')
 
       // Execute hooks to mutate ast.
       const plugins = options.plugins ?? []
@@ -161,6 +101,18 @@ export async function setFieldsOnGraphQLNodeType(
           )
         }
       }
+
+      // Resolve ast urls.
+      resolveAstUrls(
+        ast,
+        (url: string): Promise<string | null> => {
+          if (/^[/](?![/])/.test(url)) {
+            return Promise.resolve(resolveUrl(urlPrefix, slug, url))
+          } else {
+            return serveStaticFile(path.join(absoluteDirPath, url))
+          }
+        },
+      )
       return ast
     })()
     astPromiseMap.set(cacheKey, astPromise)

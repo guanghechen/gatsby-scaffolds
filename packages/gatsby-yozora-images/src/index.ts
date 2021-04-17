@@ -143,6 +143,8 @@ function mutateYozoraAst(
       if (imageData == null) return null
 
       // Resolve url.
+      // eslint-disable-next-line no-param-reassign
+      node.url = imageData.src
       originalNode.alt = imageData.alt
       originalNode.src = imageData.src
       originalNode.srcSet = imageData.srcSet
