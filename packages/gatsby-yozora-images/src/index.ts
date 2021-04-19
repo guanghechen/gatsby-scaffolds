@@ -1,7 +1,7 @@
 import type { AstMutateApi } from '@guanghechen/gatsby-transformer-yozora'
 import type { Image, ImageReference, YastNode } from '@yozora/ast'
 import { ImageReferenceType, ImageType } from '@yozora/ast'
-import { traverseAST } from '@yozora/ast-util'
+import { collectDefinitions, traverseAST } from '@yozora/ast-util'
 import chalk from 'chalk'
 import { slash } from 'gatsby-core-utils'
 import { fluid } from 'gatsby-plugin-sharp'
@@ -50,7 +50,7 @@ function mutateYozoraAst(
   pluginOptions: GatsbyYozoraImagesOptions = {},
 ): Promise<void> {
   const options = { ...defaultFluidArgs, pathPrefix, ...pluginOptions }
-  const { definitions } = markdownAST.meta
+  const definitions = collectDefinitions(markdownAST)
   const markdownImageNodes: ImageNode[] = []
 
   traverseAST(markdownAST, [ImageReferenceType, ImageType], node =>
