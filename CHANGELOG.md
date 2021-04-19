@@ -1,5 +1,20 @@
 # Changelog
 
+<a name="1.5.0"></a>
+## 1.5.0 (2021-04-19)
+
+### Changed
+
+- 👽 [gatsby-yozora-image] fix: update due to the upgrade of @yozora [[3513b91](https://github.com/guanghechen/gatsby-scaffolds/commit/3513b9164f4e9f0920c75c78477d8b219b51e8d6)]
+- ⬆️ chore: upgrade dependencies [[5c0fdae](https://github.com/guanghechen/gatsby-scaffolds/commit/5c0fdae7da853f7e8811521d6703d9b4aaff512c)]
+
+### Miscellaneous
+
+- 🚧 [gatsby-transform-yozora] feat: support new plugin options &#x27;footnoteIdentifierPrefix&#x27; [[171346b](https://github.com/guanghechen/gatsby-scaffolds/commit/171346b06eaecc8da44e45f518919818ec3b4a39)]
+- 🚧 [gatsby-transform-yozora] feat: support new plugin options &#x27;preferFootnoteReferences&#x27; [[e6d4639](https://github.com/guanghechen/gatsby-scaffolds/commit/e6d4639b8294f5d4618f9ec6ff875dff49c05bf1)]
+- 📝 docs: update CHANGELOG [[a914a30](https://github.com/guanghechen/gatsby-scaffolds/commit/a914a30a47fb2d946b08a3ce21bc3ff670fdd12d)]
+
+
 <a name="1.4.0"></a>
 ## 1.4.0 (2021-04-17)
 
