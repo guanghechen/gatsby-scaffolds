@@ -1,10 +1,18 @@
 import { isFunction } from '@guanghechen/option-helper'
-import type { HeadingToc, Root, YastLiteral, YastParent } from '@yozora/ast'
+import type {
+  HeadingToc,
+  Root,
+  YastAssociation,
+  YastLiteral,
+  YastParent,
+} from '@yozora/ast'
+import { FootnoteDefinitionType, FootnoteReferenceType } from '@yozora/ast'
 import {
   calcHeadingToc,
   collectDefinitions,
   collectFootnoteDefinitions,
   shallowCloneAst,
+  traverseAST,
 } from '@yozora/ast-util'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import path from 'path'
@@ -34,6 +42,10 @@ export async function setFieldsOnGraphQLNodeType(
     parser,
     parseOptions = {},
     preferFootnoteReferences = false,
+    headingIdentifierPrefix = 'heading-',
+    footnoteIdentifierPrefix = 'footnote-',
+    frontmatter = {},
+    plugins = [],
   } = options
 
   /**
@@ -60,7 +72,6 @@ export async function setFieldsOnGraphQLNodeType(
     }
 
     // Execute hooks to mutate source contents before parse processing.
-    const plugins = options.plugins || []
     for (const plugin of plugins) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const requiredPlugin = require(plugin.resolve)
@@ -87,7 +98,6 @@ export async function setFieldsOnGraphQLNodeType(
       )
 
       // Execute hooks to mutate ast.
-      const plugins = options.plugins ?? []
       for (const plugin of plugins) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const requiredPlugin = require(plugin.resolve)
@@ -255,10 +265,7 @@ export async function setFieldsOnGraphQLNodeType(
       type: 'MarkdownYozoraToc!',
       async resolve(markdownNode: Node): Promise<HeadingToc> {
         const ast = await getAst(markdownNode)
-        const toc = calcHeadingToc(
-          ast,
-          options.headingIdentifierPrefix ?? 'heading-',
-        )
+        const toc = calcHeadingToc(ast, headingIdentifierPrefix)
         return toc
       },
     },
@@ -284,7 +291,7 @@ export async function setFieldsOnGraphQLNodeType(
         const fullAst = await getAst(markdownNode)
         const excerptAst = await getExcerptAst(fullAst, {
           pruneLength,
-          excerptSeparator: options.frontmatter?.excerpt_separator,
+          excerptSeparator: frontmatter.excerpt_separator,
         })
         return excerptAst
       },
@@ -320,6 +327,19 @@ export async function setFieldsOnGraphQLNodeType(
           undefined,
           parseOptions.presetFootnoteDefinitions,
           preferReferences,
+        )
+
+        traverseAST(
+          ast,
+          [FootnoteReferenceType, FootnoteDefinitionType],
+          node => {
+            const o = (node as unknown) as YastAssociation
+            if (o.identifier != null) {
+              o.identifier = o.identifier.startsWith(footnoteIdentifierPrefix)
+                ? o.identifier
+                : footnoteIdentifierPrefix + o.identifier
+            }
+          },
         )
         return footnoteDefinitions
       },

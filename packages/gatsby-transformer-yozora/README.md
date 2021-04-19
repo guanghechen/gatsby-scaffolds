@@ -101,6 +101,7 @@ Name                        | Required  | Default
 `parseOptions`              | `false`   | -
 `preferFootnoteReferences`  | `false`   | `false`
 `headingIdentifierPrefix`   | `false`   | `heading-`
+`footnoteIdentifierPrefix`  | `false`   | `footnote-`
 `frontmatter`               | `false`   | -
 `plugins`                   | `false`   | -
 
@@ -113,12 +114,15 @@ Name                        | Required  | Default
   footnote reference definitions.
 
 * `headingIdentifierPrefix`: The identifier prefix of the headings that 
-  constitutes the toc (Table of Content)
+  constitutes the toc (Table of Content).
 
-* `frontmatter`: Options for [gray-matter][]
+* `footnoteIdentifierPrefix`: The identifier prefix of the footnote references
+  and footnote reference definitions.
+
+* `frontmatter`: Options for [gray-matter][].
 
 * `plugins`: Plugins of [@guanghechen/gatsby-transformer-yozora][], similar with the
-  plugins option of [gatsby-transformer-remark][]
+  plugins option of [gatsby-transformer-remark][].
 
   ```typescript
   /**

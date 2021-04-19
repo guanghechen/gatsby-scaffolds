@@ -34,6 +34,11 @@ export interface TransformerYozoraOptions {
    */
   headingIdentifierPrefix?: string
   /**
+   * prefix of footnoteReference.identifier
+   * @default 'footnote-'
+   */
+  footnoteIdentifierPrefix?: string
+  /**
    * Replace footnotes into reference footnotes and footnote reference definitions.
    * @default false
    */
