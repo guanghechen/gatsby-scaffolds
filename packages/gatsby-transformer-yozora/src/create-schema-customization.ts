@@ -44,6 +44,8 @@ const typeDefs = `
     categories: [[MarkdownYozoraCategoryItem]]!
     toc: MarkdownYozoraToc!
     ast: JSON!
+    definitions: JSON!
+    footnoteDefinitions: JSON!
   }
 `
 

@@ -1,6 +1,11 @@
 import { isFunction } from '@guanghechen/option-helper'
 import type { HeadingToc, Root, YastLiteral, YastParent } from '@yozora/ast'
-import { calcHeadingToc, shallowCloneAst } from '@yozora/ast-util'
+import {
+  calcHeadingToc,
+  collectDefinitions,
+  collectFootnoteDefinitions,
+  shallowCloneAst,
+} from '@yozora/ast-util'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import path from 'path'
 import type { TransformerYozoraOptions } from './types'
@@ -25,7 +30,11 @@ export async function setFieldsOnGraphQLNodeType(
 ): Promise<any> {
   const { slugField = 'slug' } = options.frontmatter || {}
   const urlPrefix: string = resolveUrl(api.pathPrefix, api.basePath as string)
-  const { parser } = options
+  const {
+    parser,
+    parseOptions = {},
+    preferFootnoteReferences = false,
+  } = options
 
   /**
    * Calc Yast Root from markdownNode.
@@ -72,7 +81,10 @@ export async function setFieldsOnGraphQLNodeType(
     const slug: string = (markdownNode as any).frontmatter[slugField] ?? ''
     const astPromise: Promise<Root> = (async function (): Promise<Root> {
       const absoluteDirPath = path.dirname(markdownNode.absolutePath as string)
-      const ast: Root = parser.parse(markdownNode.internal.content || '')
+      const ast: Root = parser.parse(
+        markdownNode.internal.content || '',
+        parseOptions,
+      )
 
       // Execute hooks to mutate ast.
       const plugins = options.plugins ?? []
@@ -277,10 +289,49 @@ export async function setFieldsOnGraphQLNodeType(
         return excerptAst
       },
     },
+    definitions: {
+      type: 'JSON',
+      args: {},
+      async resolve(markdownNode: Node) {
+        const ast = await getAst(markdownNode)
+        const footnoteDefinitions = collectDefinitions(
+          ast,
+          undefined,
+          parseOptions.presetDefinitions,
+        )
+        return footnoteDefinitions
+      },
+    },
+    footnoteDefinitions: {
+      type: 'JSON',
+      args: {
+        preferReferences: {
+          type: 'Boolean',
+          defaultValue: preferFootnoteReferences,
+        },
+      },
+      async resolve(
+        markdownNode: Node,
+        { preferReferences }: GetFootnoteDefinitionsOptions,
+      ) {
+        const ast = await getAst(markdownNode)
+        const footnoteDefinitions = collectFootnoteDefinitions(
+          ast,
+          undefined,
+          parseOptions.presetFootnoteDefinitions,
+          preferReferences,
+        )
+        return footnoteDefinitions
+      },
+    },
   }
 }
 
 interface GetExcerptAstOptions {
   pruneLength: number
   excerptSeparator?: string
+}
+
+interface GetFootnoteDefinitionsOptions {
+  preferReferences: boolean
 }

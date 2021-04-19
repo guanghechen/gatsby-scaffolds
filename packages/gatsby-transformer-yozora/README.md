@@ -83,6 +83,7 @@ module.exports = {
       resolve: '@guanghechen/gatsby-transformer-yozora',
       options: {
         parser: new YozoraParser(),
+        preferFootnoteReferences: true,
         frontmatter: {
           excerpt_separator: '<!-- more -->',
         }
@@ -94,15 +95,22 @@ module.exports = {
 
 ### Options
 
-Name                      | Required  | Default
-:-------------------------|:----------|:-----------
-`parser`                  | `true`    | -
-`headingIdentifierPrefix` | `false`   | `heading-`
-`frontmatter`             | `false`   | -
-`plugins`                 | `false`   | -
+Name                        | Required  | Default
+:---------------------------|:----------|:-----------
+`parser`                    | `true`    | -
+`parseOptions`              | `false`   | -
+`preferFootnoteReferences`  | `false`   | `false`
+`headingIdentifierPrefix`   | `false`   | `heading-`
+`frontmatter`               | `false`   | -
+`plugins`                   | `false`   | -
 
 
 * `parser`: A [yozora][yozora-repo] parser.
+
+* `parseOptions`: Options for `parser.parse()`
+
+* `preferFootnoteReferences`: Replace footnotes into footnote references and 
+  footnote reference definitions.
 
 * `headingIdentifierPrefix`: The identifier prefix of the headings that 
   constitutes the toc (Table of Content)

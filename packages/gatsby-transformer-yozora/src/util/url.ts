@@ -27,13 +27,6 @@ export async function resolveAstUrls(
     }
   })
 
-  for (const definition of Object.values(ast.meta.definitions)) {
-    const promise = resolveUrl(definition.url).then(url => {
-      definition.url = url ?? definition.url
-    })
-    promises.push(promise)
-  }
-
   try {
     await Promise.all(promises)
   } catch (error) {
