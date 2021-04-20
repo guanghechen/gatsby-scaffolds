@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.5.1"></a>
+## 1.5.1 (2021-04-20)
+
+### Changed
+
+- ⬆️ chore: upgrade @yozora [[374fccf](https://github.com/guanghechen/gatsby-scaffolds/commit/374fccf6f041b211f80ede1117b5c5f36a376b8d)]
+- 🔧 chore: remove comments from bundled files &amp; don&#x27;t generate sourcemaps [[86f2e69](https://github.com/guanghechen/gatsby-scaffolds/commit/86f2e69e6e3c2cfd124d4d5c21bbad7299101ecf)]
+
+### Miscellaneous
+
+- 🚧 [gatsby-transformer-yozora] improve: use dirpath instead of filepath to generate finger of the file in production env [[101e789](https://github.com/guanghechen/gatsby-scaffolds/commit/101e7898e133b6b60ef424ea8a4ff379027afbf6)]
+- 🚧 [gatsby-transform-yozora] feat: support new plugin options &#x27;shouldStripChineseChars&#x27; [[53df742](https://github.com/guanghechen/gatsby-scaffolds/commit/53df742c51fa0accf3715093ad5d456b71e87368)]
+- 🚧 feat: BREAKLING: change graphql types &amp; plugin options [[f0ce6a9](https://github.com/guanghechen/gatsby-scaffolds/commit/f0ce6a9500278454f1ac26736fd26433c6e02af5)]
+- 📝 docs: update CHANGELOG [[ba8c59d](https://github.com/guanghechen/gatsby-scaffolds/commit/ba8c59dea8d31ec6c25b664159477017f45c1115)]
+
+
 <a name="1.5.0"></a>
 ## 1.5.0 (2021-04-19)
 
