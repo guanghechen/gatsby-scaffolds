@@ -1,5 +1,5 @@
 import type { Definition, FootnoteDefinition, Root } from '@yozora/ast'
-import type { ParseOptions, YastParser } from '@yozora/core-parser'
+import type { YastParser } from '@yozora/core-parser'
 import type { GatsbyCache, Node, Reporter } from 'gatsby'
 
 /**
@@ -47,6 +47,11 @@ export interface TransformerYozoraOptions {
    * @default 'heading-'
    */
   headingIdentifierPrefix?: string
+  /**
+   * Whether to remove line end between two chinese characters.
+   * @default false
+   */
+  shouldStripChineseCharacters?: boolean
   /**
    * Options for `gray-matter`
    */

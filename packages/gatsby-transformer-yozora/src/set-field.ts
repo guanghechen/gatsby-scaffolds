@@ -1,12 +1,12 @@
 import { isFunction } from '@guanghechen/option-helper'
+import { TextType } from '@yozora/ast'
 import type {
   HeadingToc,
   Root,
-  YastAssociation,
+  Text,
   YastLiteral,
   YastParent,
 } from '@yozora/ast'
-import { FootnoteDefinitionType, FootnoteReferenceType } from '@yozora/ast'
 import {
   calcDefinitionMap,
   calcFootnoteDefinitionMap,
@@ -14,6 +14,7 @@ import {
   shallowCloneAst,
   traverseAST,
 } from '@yozora/ast-util'
+import { stripChineseCharacters } from '@yozora/character'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import path from 'path'
 import type { TransformerYozoraOptions } from './types'
@@ -45,6 +46,7 @@ export async function setFieldsOnGraphQLNodeType(
     footnoteIdentifierPrefix = 'footnote-',
     presetDefinitions,
     presetFootnoteDefinitions,
+    shouldStripChineseCharacters = false,
     frontmatter = {},
     plugins = [],
   } = options
@@ -136,6 +138,14 @@ export async function setFieldsOnGraphQLNodeType(
           }
         },
       )
+
+      // Remove line end between two chinese characters.
+      if (shouldStripChineseCharacters) {
+        traverseAST(ast, [TextType], node => {
+          const text = node as Text
+          text.value = stripChineseCharacters(text.value)
+        })
+      }
       return ast
     })()
     astPromiseMap.set(cacheKey, astPromise)

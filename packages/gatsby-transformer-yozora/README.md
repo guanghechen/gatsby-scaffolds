@@ -103,6 +103,7 @@ Name                        | Required  | Default
 `presetFootnoteDefinitions` | `false`   | -
 `headingIdentifierPrefix`   | `false`   | `heading-`
 `footnoteIdentifierPrefix`  | `false`   | `footnote-`
+`shouldStripChineseChars`   | `false`   | `false`
 `frontmatter`               | `false`   | -
 `plugins`                   | `false`   | -
 
@@ -121,6 +122,8 @@ Name                        | Required  | Default
 
 * `footnoteIdentifierPrefix`: The identifier prefix of the footnote references
   and footnote reference definitions.
+
+* `shouldStripChineseChars`: Whether to remove line end between two chinese characters.
 
 * `frontmatter`: Options for [gray-matter][].
 

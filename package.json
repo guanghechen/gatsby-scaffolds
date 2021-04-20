@@ -54,6 +54,7 @@
     "@types/react": "^17.0.3",
     "@yozora/ast": "^1.0.0-alpha.20",
     "@yozora/ast-util": "^1.0.0-alpha.20",
+    "@yozora/character": "^1.0.0-alpha.20",
     "@yozora/core-parser": "^1.0.0-alpha.20",
     "cross-env": "7.0.3",
     "eslint": "7.24.0",
