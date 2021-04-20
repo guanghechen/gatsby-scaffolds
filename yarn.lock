@@ -3472,42 +3472,42 @@
   resolved "https://registry.npmjs.org/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
   integrity sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==
 
-"@yozora/ast-util@^1.0.0-alpha.19":
-  version "1.0.0-alpha.19"
-  resolved "https://registry.npmjs.org/@yozora/ast-util/-/ast-util-1.0.0-alpha.19.tgz#da0bc818397a4ff3065264fe8b0bd07bf200b560"
-  integrity sha512-cA8IUYD411DaOmApZxHayJVdCfRQugSaQt6Qebab0p8ErW0eQBsh+UMxsKoylnv3Ja0ugdbbwwqeH7+moYZ72A==
+"@yozora/ast-util@^1.0.0-alpha.20":
+  version "1.0.0-alpha.20"
+  resolved "https://registry.npmjs.org/@yozora/ast-util/-/ast-util-1.0.0-alpha.20.tgz#daf862c30bcd41a59a63b0d671cbdb25d8de836f"
+  integrity sha512-7mNZAWTv7R100mwTSSR36gzhV7HsgTZ2GPZ7LwsPthnKklQr2GOYu+eMff/FiYSIOLz8MWcD0enhzkiMC0Y11Q==
   dependencies:
-    "@yozora/ast" "^1.0.0-alpha.19"
-    "@yozora/character" "^1.0.0-alpha.19"
+    "@yozora/ast" "^1.0.0-alpha.20"
+    "@yozora/character" "^1.0.0-alpha.20"
 
-"@yozora/ast@^1.0.0-alpha.19":
-  version "1.0.0-alpha.19"
-  resolved "https://registry.npmjs.org/@yozora/ast/-/ast-1.0.0-alpha.19.tgz#361c06766c4b16541f0444b9f8916e11770cf195"
-  integrity sha512-plbx23c1SY5iuqWA84OxsGVGgB1ha93QHTuDOUHGfP9O5Y5EmcdneQxgzEy0CTuqG7SZqyc0bjqz/qOel7ZWcQ==
+"@yozora/ast@^1.0.0-alpha.20":
+  version "1.0.0-alpha.20"
+  resolved "https://registry.npmjs.org/@yozora/ast/-/ast-1.0.0-alpha.20.tgz#63aa7c490a8080377157bf1d85cacd153cc92861"
+  integrity sha512-Rui6HuW7uzgVyyzErKd3xoYfx+nlnKN+08kebzYzhNIaasFOEdE2Cp49WKiGyU6P7017IJYoayS+5wWV/wSgkg==
 
-"@yozora/character@^1.0.0-alpha.19":
-  version "1.0.0-alpha.19"
-  resolved "https://registry.npmjs.org/@yozora/character/-/character-1.0.0-alpha.19.tgz#9f24b9c2c48a1ff30c6d9276a4cd28fb4398484f"
-  integrity sha512-zDsl9vYLUi82sSqKro0MvXyX8XYzeyWg6OCJvlLRVDwtUyvYSJf0EeN/8Wg9DbrYObUAbXgXRAoL0PgdABI0IA==
+"@yozora/character@^1.0.0-alpha.20":
+  version "1.0.0-alpha.20"
+  resolved "https://registry.npmjs.org/@yozora/character/-/character-1.0.0-alpha.20.tgz#4bfc8fcce9b79e16bc4ec904673cccf6634c3ae1"
+  integrity sha512-qUWWxRqRZlMc17nSt7il6RsMk7nH2MONJ6/gbBRf/4l+id66biHIAgGYvX5IKTNRDilkmnMuzFvBNFMOFAR9IQ==
 
-"@yozora/core-parser@^1.0.0-alpha.19":
-  version "1.0.0-alpha.19"
-  resolved "https://registry.npmjs.org/@yozora/core-parser/-/core-parser-1.0.0-alpha.19.tgz#c02ab38599d3d0eda27a4925874b926b6464a05d"
-  integrity sha512-T7zIVn+GZd1G5A6jwRyTu8HXo2PJL9sIRChnLLihHRPLOVPDm89lwMdrBQrw0axdTsIUNKaIE1wABMBXemimyw==
+"@yozora/core-parser@^1.0.0-alpha.20":
+  version "1.0.0-alpha.20"
+  resolved "https://registry.npmjs.org/@yozora/core-parser/-/core-parser-1.0.0-alpha.20.tgz#a6d72b7519bd29e1a705eaf5f616e35448085d5a"
+  integrity sha512-NEPR5Nmahwi+iq+8C3XRBltq8ZSNAVLEdUXUhIOQNPU33UTla3AHr3uFqx9TCY44C4q06myp3eFaBHTOEX/9uA==
   dependencies:
-    "@yozora/ast" "^1.0.0-alpha.19"
-    "@yozora/ast-util" "^1.0.0-alpha.19"
-    "@yozora/character" "^1.0.0-alpha.19"
-    "@yozora/core-tokenizer" "^1.0.0-alpha.19"
+    "@yozora/ast" "^1.0.0-alpha.20"
+    "@yozora/ast-util" "^1.0.0-alpha.20"
+    "@yozora/character" "^1.0.0-alpha.20"
+    "@yozora/core-tokenizer" "^1.0.0-alpha.20"
     tiny-invariant "^1.1.0"
 
-"@yozora/core-tokenizer@^1.0.0-alpha.19":
-  version "1.0.0-alpha.19"
-  resolved "https://registry.npmjs.org/@yozora/core-tokenizer/-/core-tokenizer-1.0.0-alpha.19.tgz#b3bba47941bc15199be6ef2a9c8d9e57cd4302b1"
-  integrity sha512-FFcJEfx0WPifhJUNBfXeBqBRPaEs7nw6B/vzb8oroGae760jEcn93IvHNUQqloIZTCEhWoYtmcca8xXf+661zA==
+"@yozora/core-tokenizer@^1.0.0-alpha.20":
+  version "1.0.0-alpha.20"
+  resolved "https://registry.npmjs.org/@yozora/core-tokenizer/-/core-tokenizer-1.0.0-alpha.20.tgz#9d8479b5c086769aa2eb3543bad9bf64158be892"
+  integrity sha512-NTZnxlNX5fkiErCPhzVFLnkG9mG/XIXDJMQQeRyPzzpKf8qN0KozUU2/uIzer1xtJBCIqbxAuwuq2J+SsTMPzQ==
   dependencies:
-    "@yozora/ast" "^1.0.0-alpha.19"
-    "@yozora/character" "^1.0.0-alpha.19"
+    "@yozora/ast" "^1.0.0-alpha.20"
+    "@yozora/character" "^1.0.0-alpha.20"
 
 JSONStream@^1.0.4, JSONStream@^1.3.4:
   version "1.3.5"
