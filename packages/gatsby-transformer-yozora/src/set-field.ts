@@ -8,9 +8,9 @@ import type {
 } from '@yozora/ast'
 import { FootnoteDefinitionType, FootnoteReferenceType } from '@yozora/ast'
 import {
+  calcDefinitionMap,
+  calcFootnoteDefinitionMap,
   calcHeadingToc,
-  collectDefinitions,
-  collectFootnoteDefinitions,
   shallowCloneAst,
   traverseAST,
 } from '@yozora/ast-util'
@@ -40,10 +40,11 @@ export async function setFieldsOnGraphQLNodeType(
   const urlPrefix: string = resolveUrl(api.pathPrefix, api.basePath as string)
   const {
     parser,
-    parseOptions = {},
     preferFootnoteReferences = false,
     headingIdentifierPrefix = 'heading-',
     footnoteIdentifierPrefix = 'footnote-',
+    presetDefinitions,
+    presetFootnoteDefinitions,
     frontmatter = {},
     plugins = [],
   } = options
@@ -92,10 +93,10 @@ export async function setFieldsOnGraphQLNodeType(
     const slug: string = (markdownNode as any).frontmatter[slugField] ?? ''
     const astPromise: Promise<Root> = (async function (): Promise<Root> {
       const absoluteDirPath = path.dirname(markdownNode.absolutePath as string)
-      const ast: Root = parser.parse(
-        markdownNode.internal.content || '',
-        parseOptions,
-      )
+      const ast: Root = parser.parse(markdownNode.internal.content || '', {
+        presetDefinitions,
+        presetFootnoteDefinitions,
+      })
 
       // Execute hooks to mutate ast.
       for (const plugin of plugins) {
@@ -296,20 +297,20 @@ export async function setFieldsOnGraphQLNodeType(
         return excerptAst
       },
     },
-    definitions: {
+    definitionMap: {
       type: 'JSON',
       args: {},
       async resolve(markdownNode: Node) {
         const ast = await getAst(markdownNode)
-        const footnoteDefinitions = collectDefinitions(
+        const definitionMap = calcDefinitionMap(
           ast,
           undefined,
-          parseOptions.presetDefinitions,
+          presetDefinitions,
         )
-        return footnoteDefinitions
+        return definitionMap
       },
     },
-    footnoteDefinitions: {
+    footnoteDefinitionMap: {
       type: 'JSON',
       args: {
         preferReferences: {
@@ -322,26 +323,14 @@ export async function setFieldsOnGraphQLNodeType(
         { preferReferences }: GetFootnoteDefinitionsOptions,
       ) {
         const ast = await getAst(markdownNode)
-        const footnoteDefinitions = collectFootnoteDefinitions(
+        const footnoteDefinitionMap = calcFootnoteDefinitionMap(
           ast,
           undefined,
-          parseOptions.presetFootnoteDefinitions,
+          presetFootnoteDefinitions,
           preferReferences,
+          footnoteIdentifierPrefix,
         )
-
-        traverseAST(
-          ast,
-          [FootnoteReferenceType, FootnoteDefinitionType],
-          node => {
-            const o = (node as unknown) as YastAssociation
-            if (o.identifier != null) {
-              o.identifier = o.identifier.startsWith(footnoteIdentifierPrefix)
-                ? o.identifier
-                : footnoteIdentifierPrefix + o.identifier
-            }
-          },
-        )
-        return footnoteDefinitions
+        return footnoteDefinitionMap
       },
     },
   }

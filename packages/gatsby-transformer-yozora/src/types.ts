@@ -1,4 +1,4 @@
-import type { Root } from '@yozora/ast'
+import type { Definition, FootnoteDefinition, Root } from '@yozora/ast'
 import type { ParseOptions, YastParser } from '@yozora/core-parser'
 import type { GatsbyCache, Node, Reporter } from 'gatsby'
 
@@ -25,24 +25,28 @@ export interface TransformerYozoraOptions {
    */
   parser: YastParser
   /**
-   * Options for `parser.parse()`.
+   * Preset footnote reference definitions
    */
-  parseOptions?: ParseOptions
+  presetFootnoteDefinitions?: FootnoteDefinition[]
   /**
-   * prefix of heading.identifier
-   * @default 'heading-'
+   * Preset link reference definitions
    */
-  headingIdentifierPrefix?: string
+  presetDefinitions?: Definition[]
+  /**
+   * Replace footnotes into reference footnotes and footnote reference definitions.
+   * @default false
+   */
+  preferFootnoteReferences?: boolean
   /**
    * prefix of footnoteReference.identifier
    * @default 'footnote-'
    */
   footnoteIdentifierPrefix?: string
   /**
-   * Replace footnotes into reference footnotes and footnote reference definitions.
-   * @default false
+   * prefix of heading.identifier
+   * @default 'heading-'
    */
-  preferFootnoteReferences?: boolean
+  headingIdentifierPrefix?: string
   /**
    * Options for `gray-matter`
    */

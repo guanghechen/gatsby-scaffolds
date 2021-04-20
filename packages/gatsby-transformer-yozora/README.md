@@ -98,8 +98,9 @@ module.exports = {
 Name                        | Required  | Default
 :---------------------------|:----------|:-----------
 `parser`                    | `true`    | -
-`parseOptions`              | `false`   | -
 `preferFootnoteReferences`  | `false`   | `false`
+`presetDefinitions`         | `false`   | -
+`presetFootnoteDefinitions` | `false`   | -
 `headingIdentifierPrefix`   | `false`   | `heading-`
 `footnoteIdentifierPrefix`  | `false`   | `footnote-`
 `frontmatter`               | `false`   | -
@@ -108,10 +109,12 @@ Name                        | Required  | Default
 
 * `parser`: A [yozora][yozora-repo] parser.
 
-* `parseOptions`: Options for `parser.parse()`
-
 * `preferFootnoteReferences`: Replace footnotes into footnote references and 
   footnote reference definitions.
+
+* `presetDefinitions`: Preset link reference definitions.
+
+* `presetFootnoteDefinitions`: Preset footnote reference definitions.
 
 * `headingIdentifierPrefix`: The identifier prefix of the headings that 
   constitutes the toc (Table of Content).
