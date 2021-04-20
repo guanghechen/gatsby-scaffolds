@@ -91,11 +91,14 @@ export function calcFingerOfFile(
   algorithm = 'sha1',
 ): Promise<string> {
   /**
-   * In a production environment, only the absolute path of the file is used as
-   * the hash value of the file.
+   * In a production environment, only the absolute dir path of the file is
+   * used to generate the the file's finger.
    */
   if (env.isEnvProduction) {
-    const finger = crypto.createHash(algorithm).update(filepath).digest('hex')
+    const finger = crypto
+      .createHash(algorithm)
+      .update(path.dirname(filepath))
+      .digest('hex')
     return Promise.resolve(finger)
   }
 
