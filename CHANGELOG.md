@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="1.5.2"></a>
+## 1.5.2 (2021-04-25)
+
+### Miscellaneous
+
+- 🚧 feat: lift properties (title,description,createAt,updateAt) from top.&#x27;frontmatter&#x27; to the top level [[72d1265](https://github.com/guanghechen/gatsby-scaffolds/commit/72d1265bd98cdb7db6fd1f90aded3101aa9c8dbf)]
+- 📝 docs: update CHANGELOG [[89f1665](https://github.com/guanghechen/gatsby-scaffolds/commit/89f1665022b03200c58449bf297b62389fa1af6e)]
+
+
+<a name="0.0.0"></a>
+## 0.0.0 (2021-04-25)
+
+### Changed
+
+- 🔧 chore: add new shortcut command &#x27;:publish-recover&#x27; [[56faaec](https://github.com/guanghechen/gatsby-scaffolds/commit/56faaecc8ce18e6599f3ec3fdefbf81ff83cabe8)]
+
+
 <a name="1.5.1"></a>
 ## 1.5.1 (2021-04-20)
 
