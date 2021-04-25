@@ -15,6 +15,7 @@ import {
   traverseAST,
 } from '@yozora/ast-util'
 import { stripChineseCharacters } from '@yozora/character'
+import dayjs from 'dayjs'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import path from 'path'
 import type { TransformerYozoraOptions } from './types'
@@ -214,7 +215,7 @@ export async function setFieldsOnGraphQLNodeType(
     return excerptAst
   }
 
-  return {
+  const result = {
     access: {
       type: 'String',
       async resolve(markdownNode: Node): Promise<string> {
@@ -241,19 +242,52 @@ export async function setFieldsOnGraphQLNodeType(
         return (parent.relativePath as string) ?? markdownNode.id
       },
     },
-    createAt: {
-      type: 'JSON',
+    description: {
+      type: 'String',
       async resolve(markdownNode: Node): Promise<string> {
+        const { description } = (markdownNode.frontmatter ?? {}) as Record<
+          string,
+          string
+        >
+        if (description != null) return description
+        return result.title.resolve(markdownNode)
+      },
+    },
+    createAt: {
+      type: 'String',
+      args: {
+        formatString: {
+          type: 'String',
+          defaultValue: null,
+        },
+      },
+      async resolve(
+        markdownNode: Node,
+        { formatString }: GetCreateAtOptions,
+      ): Promise<string> {
         const { createAt, date } = (markdownNode.frontmatter ?? {}) as any
-        return createAt ?? date ?? new Date().toJSON()
+        const d = createAt ?? date
+        if (formatString == null) return dayjs(d).toJSON()
+        return dayjs(d).format(formatString)
       },
     },
     updateAt: {
-      type: 'JSON',
-      async resolve(markdownNode: Node): Promise<string> {
+      type: 'String',
+      args: {
+        formatString: {
+          type: 'String',
+          defaultValue: null,
+        },
+      },
+      async resolve(
+        markdownNode: Node,
+        { formatString }: GetCreateAtOptions,
+      ): Promise<string> {
         const { updateAt, createAt, date } = (markdownNode.frontmatter ??
           {}) as any
-        return updateAt ?? createAt ?? date ?? new Date().toJSON()
+        const d = updateAt ?? createAt ?? date
+        if (formatString == null) return dayjs(d).toJSON()
+        return dayjs(d).format(formatString)
       },
     },
     tags: {
@@ -344,6 +378,7 @@ export async function setFieldsOnGraphQLNodeType(
       },
     },
   }
+  return result
 }
 
 interface GetExcerptAstOptions {
@@ -353,4 +388,12 @@ interface GetExcerptAstOptions {
 
 interface GetFootnoteDefinitionsOptions {
   preferReferences: boolean
+}
+
+interface GetCreateAtOptions {
+  formatString?: string
+}
+
+interface GetUpdateAtOptions {
+  formatString?: string
 }

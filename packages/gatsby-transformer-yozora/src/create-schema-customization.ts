@@ -37,13 +37,14 @@ const typeDefs = `
     id: ID!
     access: String!
     title: String!
+    description: String!
     createAt: String!
     updateAt: String!
-    excerpt: String!
     tags: [MarkdownYozoraTag]!
     categories: [[MarkdownYozoraCategoryItem]]!
     toc: MarkdownYozoraToc!
     ast: JSON!
+    excerptAst: JSON!
     definitionMap: JSON!
     footnoteDefinitionMap: JSON!
   }
