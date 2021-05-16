@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.5.3"></a>
+## 1.5.3 (2021-05-15)
+
+### Changed
+
+- ⬆️ chore: upgrade dependencies [[3f5c27c](https://github.com/guanghechen/gatsby-scaffolds/commit/3f5c27cbef0e87672628a2519659150f05ff8472)]
+- 🔧 chore: add new shortcut command &#x27;:publish-recover&#x27; [[56faaec](https://github.com/guanghechen/gatsby-scaffolds/commit/56faaecc8ce18e6599f3ec3fdefbf81ff83cabe8)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[d5b5e18](https://github.com/guanghechen/gatsby-scaffolds/commit/d5b5e1814e577167bd190b09f240deec384bc59f)]
+
+
 <a name="1.5.2"></a>
 ## 1.5.2 (2021-04-25)
 
