@@ -1,5 +1,20 @@
 # Changelog
 
+<a name="1.5.4"></a>
+## 1.5.4 (2021-06-02)
+
+### Changed
+
+- 🔧 chore: trigger ci on new release tag created [[47c0e84](https://github.com/guanghechen/gatsby-scaffolds/commit/47c0e847637268b2433b006ce38dd19d8cfd48fd)]
+- 🔧 chore: rename master to main [[660a37b](https://github.com/guanghechen/gatsby-scaffolds/commit/660a37b8a2489070e7b1d9288d5e612453a93e79)]
+- 🔧 chore: update lint config [[3438307](https://github.com/guanghechen/gatsby-scaffolds/commit/343830789a0d93bbcb075b649e0337e7e4f9a81d)]
+- ⬆️ chore: upgrade dependencies [[0c9cce3](https://github.com/guanghechen/gatsby-scaffolds/commit/0c9cce33d8c454638a979ad6beff248e0ecca365)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[3a479eb](https://github.com/guanghechen/gatsby-scaffolds/commit/3a479ebb068ef5a709df1954de148f39ae2e6737)]
+
+
 <a name="1.5.3"></a>
 ## 1.5.3 (2021-05-15)
 
