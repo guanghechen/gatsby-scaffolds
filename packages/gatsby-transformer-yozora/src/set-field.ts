@@ -129,16 +129,13 @@ export async function setFieldsOnGraphQLNodeType(
       }
 
       // Resolve ast urls.
-      resolveAstUrls(
-        ast,
-        (url: string): Promise<string | null> => {
-          if (/^[/](?![/])/.test(url)) {
-            return Promise.resolve(resolveUrl(urlPrefix, slug, url))
-          } else {
-            return serveStaticFile(path.join(absoluteDirPath, url))
-          }
-        },
-      )
+      resolveAstUrls(ast, (url: string): Promise<string | null> => {
+        if (/^[/](?![/])/.test(url)) {
+          return Promise.resolve(resolveUrl(urlPrefix, slug, url))
+        } else {
+          return serveStaticFile(path.join(absoluteDirPath, url))
+        }
+      })
 
       // Remove line end between two chinese characters.
       if (shouldStripChineseCharacters) {
@@ -182,7 +179,7 @@ export async function setFieldsOnGraphQLNodeType(
 
     // Try to truncate excerpt.
     let totalExcerptLengthSoFar = 0
-    let parentOfLastLiteralNode: YastParent | null = null
+    let parentOfLastLiteralNode: YastParent | null = null as YastParent | null
     let indexOfLastLiteralNode = 0
     const excerptAst = shallowCloneAst(fullAst, (node, parent, index) => {
       if (totalExcerptLengthSoFar >= pruneLength) return true

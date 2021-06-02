@@ -54,7 +54,7 @@ function mutateYozoraAst(
   const markdownImageNodes: ImageNode[] = []
 
   traverseAST(markdownAST, [ImageReferenceType, ImageType], node =>
-    markdownImageNodes.push((node as unknown) as ImageNode),
+    markdownImageNodes.push(node as unknown as ImageNode),
   )
 
   // Takes a node and generates the needed images and then returns
@@ -124,7 +124,7 @@ function mutateYozoraAst(
     if (node.url == null && node.identifier != null) {
       originalNode = node
       // eslint-disable-next-line no-param-reassign
-      node = (definitionMap[originalNode.identifier] as unknown) as ImageNode
+      node = definitionMap[originalNode.identifier] as unknown as ImageNode
 
       // no definition found for image reference,
       // so there's nothing for us to do.

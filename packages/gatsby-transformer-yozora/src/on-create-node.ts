@@ -57,10 +57,10 @@ export async function onCreateNode(
       parent: node.id,
       children: [],
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      internal: ({
+      internal: {
         type: 'MarkdownYozora',
         content: rawMarkdownBody,
-      } as Partial<Node['internal']>) as Node['internal'],
+      } as Partial<Node['internal']> as Node['internal'],
       excerpt: data.excerpt,
       frontmatter: { ...data.data },
     }
