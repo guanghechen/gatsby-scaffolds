@@ -11,7 +11,7 @@
     "url": "https://github.com/guanghechen/gatsby-scaffolds.git",
     "directory": "packages/gatsby-plugin-stylus"
   },
-  "homepage": "https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-plugin-stylus#readme",
+  "homepage": "https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-plugin-stylus#readme",
   "keywords": [
     "gatsby",
     "gatsby plugin",

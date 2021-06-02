@@ -27,7 +27,7 @@
     <a href="https://github.com/guanghechen/gatsby-scaffolds/actions/workflows/ci.yml">
       <img
         alt="CI Workflow"
-        src="https://github.com/guanghechen/gatsby-scaffolds/workflows/Build/badge.svg?branch=master"
+        src="https://github.com/guanghechen/gatsby-scaffolds/workflows/Build/badge.svg?branch=main"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -56,7 +56,7 @@ Package                               | Description
 
 ## License
 
-gatsby-scaffolds is [MIT licensed](https://github.com/guanghechen/gatsby-scaffolds/blob/master/LICENSE).
+gatsby-scaffolds is [MIT licensed](https://github.com/guanghechen/gatsby-scaffolds/blob/main/LICENSE).
 
 
 [homepage]: https://github.com/guanghechen/gatsby-scaffolds

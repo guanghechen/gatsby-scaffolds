@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-transformer-yozora#readme">@guanghechen/gatsby-transformer-yozora</a>
+    <a href="https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-transformer-yozora#readme">@guanghechen/gatsby-transformer-yozora</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/gatsby-transformer-yozora">
@@ -185,14 +185,14 @@ Name                        | Required  | Default
 * [gray-matter][]
 
 
-[homepage]: https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-transformer-yozora#readme
+[homepage]: https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-transformer-yozora#readme
 [yozora-repo]: https://github.com/guanghechen/yozora
-[@guanghechen/gatsby-transformer-yozora]: https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-transformer-yozora#readme
-[@guanghechen/gatsby-yozora-images]: https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-yozora-images#readme
-[@yozora/ast]: https://github.com/guanghechen/yozora/tree/master/packages/ast
-[@yozora/parser]: https://github.com/guanghechen/yozora/tree/master/packages/parser
-[@yozora/parser-gfm]: https://github.com/guanghechen/yozora/tree/master/packages/parser-gfm
-[@yozora/parser-gfm-ex]: https://github.com/guanghechen/yozora/tree/master/packages/parser-gfm-ex
+[@guanghechen/gatsby-transformer-yozora]: https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-transformer-yozora#readme
+[@guanghechen/gatsby-yozora-images]: https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-yozora-images#readme
+[@yozora/ast]: https://github.com/guanghechen/yozora/tree/main/packages/ast
+[@yozora/parser]: https://github.com/guanghechen/yozora/tree/main/packages/parser
+[@yozora/parser-gfm]: https://github.com/guanghechen/yozora/tree/main/packages/parser-gfm
+[@yozora/parser-gfm-ex]: https://github.com/guanghechen/yozora/tree/main/packages/parser-gfm-ex
 [gatsby-transformer-remark]: https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-transformer-remark
 [gatsby-remark-images]: https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-images
 [gray-matter]: https://github.com/jonschlinkert/gray-matter

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-yozora-images#readme">@guanghechen/gatsby-yozora-images</a>
+    <a href="https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-yozora-images#readme">@guanghechen/gatsby-yozora-images</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/gatsby-yozora-images">
@@ -91,4 +91,4 @@ module.exports = {
 ```
 
 
-[homepage]: https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-yozora-images#readme
+[homepage]: https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-yozora-images#readme

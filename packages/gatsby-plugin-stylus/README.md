@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-plugin-stylus#readme">@guanghechen/gatsby-plugin-stylus</a>
+    <a href="https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-plugin-stylus#readme">@guanghechen/gatsby-plugin-stylus</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/gatsby-plugin-stylus">
@@ -142,7 +142,7 @@ Name                    | Required  | Type    | Default |  Description
   ```
 
 
-[homepage]: https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-plugin-stylus#readme
+[homepage]: https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-plugin-stylus#readme
 [css-loader]: https://github.com/webpack-contrib/css-loader
 [postcss-loader]: https://github.com/webpack-contrib/postcss-loader
 [stylus-loader]: https://github.com/webpack-contrib/stylus-loader

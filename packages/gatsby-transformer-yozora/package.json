@@ -11,7 +11,7 @@
     "url": "https://github.com/guanghechen/gatsby-scaffolds.git",
     "directory": "packages/gatsby-transformer-yozora"
   },
-  "homepage": "https://github.com/guanghechen/gatsby-scaffolds/tree/master/packages/gatsby-transformer-yozora#readme",
+  "homepage": "https://github.com/guanghechen/gatsby-scaffolds/tree/main/packages/gatsby-transformer-yozora#readme",
   "keywords": [
     "gatsby",
     "gatsby plugin",
