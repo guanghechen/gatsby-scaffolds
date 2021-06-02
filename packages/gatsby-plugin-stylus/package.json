@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/gatsby-plugin-stylus",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Provides drop-in support for Stylus & generate *.d.ts for Stylus",
   "author": {
     "name": "guanghechen",
