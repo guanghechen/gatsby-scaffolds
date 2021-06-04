@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.6.0"></a>
+## 1.6.0 (2021-06-04)
+
+### Added
+
+- ✨ feat(gatsby-transformer-yozora): support to query the timeToRead [[d51c96e](https://github.com/guanghechen/gatsby-scaffolds/commit/d51c96ec04f9a02f84c1030607b5b3639b720861)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[246a551](https://github.com/guanghechen/gatsby-scaffolds/commit/246a551b51fce29e3a9ea47cdb82c3e9d9a79920)]
+
+
 <a name="1.5.4"></a>
 ## 1.5.4 (2021-06-02)
 
