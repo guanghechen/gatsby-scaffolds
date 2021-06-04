@@ -53,6 +53,11 @@ export interface TransformerYozoraOptions {
    */
   shouldStripChineseCharacters?: boolean
   /**
+   * The number of words read per minute
+   * @default 80
+   */
+  wordsPerMinute?: number
+  /**
    * Options for `gray-matter`
    */
   frontmatter?: {

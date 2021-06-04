@@ -104,6 +104,7 @@ Name                        | Required  | Default
 `headingIdentifierPrefix`   | `false`   | `heading-`
 `footnoteIdentifierPrefix`  | `false`   | `footnote-`
 `shouldStripChineseChars`   | `false`   | `false`
+`wordsPerMinute`            | `false`   | 80
 `frontmatter`               | `false`   | -
 `plugins`                   | `false`   | -
 
@@ -124,6 +125,8 @@ Name                        | Required  | Default
   and footnote reference definitions.
 
 * `shouldStripChineseChars`: Whether to remove line end between two chinese characters.
+
+* `wordsPerMinute`: The number of words read per minute.
 
 * `frontmatter`: Options for [gray-matter][].
 

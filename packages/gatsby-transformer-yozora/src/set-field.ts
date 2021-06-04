@@ -1,6 +1,8 @@
 import { isFunction } from '@guanghechen/option-helper'
 import { TextType } from '@yozora/ast'
 import type {
+  Definition,
+  FootnoteDefinition,
   HeadingToc,
   Root,
   Text,
@@ -16,12 +18,16 @@ import {
 } from '@yozora/ast-util'
 import { stripChineseCharacters } from '@yozora/character'
 import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
 import path from 'path'
 import type { TransformerYozoraOptions } from './types'
 import env from './util/env'
 import { normalizeTagOrCategory } from './util/string'
+import { timeToRead } from './util/timeToRead'
 import { resolveAstUrls, resolveUrl, serveStaticFile } from './util/url'
+
+dayjs.extend(duration)
 
 let fileNodes: Node[] | null = null
 const astPromiseMap = new Map<string, Promise<Root>>()
@@ -48,6 +54,7 @@ export async function setFieldsOnGraphQLNodeType(
     presetDefinitions,
     presetFootnoteDefinitions,
     shouldStripChineseCharacters = false,
+    wordsPerMinute,
     frontmatter = {},
     plugins = [],
   } = options
@@ -287,6 +294,23 @@ export async function setFieldsOnGraphQLNodeType(
         return dayjs(d).format(formatString)
       },
     },
+    timeToRead: {
+      type: `String`,
+      args: {
+        formatString: {
+          type: 'String',
+          defaultValue: null,
+        },
+      },
+      async resolve(
+        markdownNode: Node,
+        { formatString }: GetCreateAtOptions,
+      ): Promise<string> {
+        const ast = await getAst(markdownNode)
+        const seconds = timeToRead(ast, wordsPerMinute)
+        return dayjs.duration(seconds * 1000).format(formatString)
+      },
+    },
     tags: {
       type: '[MarkdownYozoraTag]!',
       async resolve(markdownNode: Node): Promise<string[]> {
@@ -341,7 +365,9 @@ export async function setFieldsOnGraphQLNodeType(
     definitionMap: {
       type: 'JSON',
       args: {},
-      async resolve(markdownNode: Node) {
+      async resolve(
+        markdownNode: Node,
+      ): Promise<Record<string, Readonly<Definition>>> {
         const ast = await getAst(markdownNode)
         const definitionMap = calcDefinitionMap(
           ast,
@@ -362,7 +388,7 @@ export async function setFieldsOnGraphQLNodeType(
       async resolve(
         markdownNode: Node,
         { preferReferences }: GetFootnoteDefinitionsOptions,
-      ) {
+      ): Promise<Record<string, FootnoteDefinition>> {
         const ast = await getAst(markdownNode)
         const footnoteDefinitionMap = calcFootnoteDefinitionMap(
           ast,

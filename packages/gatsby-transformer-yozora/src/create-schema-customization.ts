@@ -40,6 +40,7 @@ const typeDefs = `
     description: String!
     createAt: String!
     updateAt: String!
+    timeToRead: String!
     tags: [MarkdownYozoraTag]!
     categories: [[MarkdownYozoraCategoryItem]]!
     toc: MarkdownYozoraToc!
