@@ -17,6 +17,7 @@ import {
   traverseAST,
 } from '@yozora/ast-util'
 import { stripChineseCharacters } from '@yozora/character'
+import renderMarkdown from '@yozora/html-markdown'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
@@ -342,6 +343,34 @@ export async function setFieldsOnGraphQLNodeType(
         return ast
       },
     },
+    html: {
+      type: 'String',
+      args: {
+        preferReferences: {
+          type: 'Boolean',
+          defaultValue: preferFootnoteReferences,
+        },
+      },
+      async resolve(
+        markdownNode: Node,
+        { preferReferences }: GetHtmlOptions,
+      ): Promise<string> {
+        const ast = await getAst(markdownNode)
+        const definitionMap = calcDefinitionMap(
+          ast,
+          undefined,
+          presetDefinitions,
+        )
+        const footnoteDefinitionMap = calcFootnoteDefinitionMap(
+          ast,
+          undefined,
+          presetFootnoteDefinitions,
+          preferReferences,
+          footnoteIdentifierPrefix,
+        )
+        return renderMarkdown(ast, definitionMap, footnoteDefinitionMap)
+      },
+    },
     excerptAst: {
       type: 'JSON',
       args: {
@@ -360,6 +389,42 @@ export async function setFieldsOnGraphQLNodeType(
           excerptSeparator: frontmatter.excerpt_separator,
         })
         return excerptAst
+      },
+    },
+    excerpt: {
+      type: 'String',
+      args: {
+        preferReferences: {
+          type: 'Boolean',
+          defaultValue: preferFootnoteReferences,
+        },
+        pruneLength: {
+          type: 'Int',
+          defaultValue: 140,
+        },
+      },
+      async resolve(
+        markdownNode: Node,
+        { preferReferences, pruneLength }: GetExcerptOptions,
+      ): Promise<string> {
+        const fullAst = await getAst(markdownNode)
+        const ast = await getExcerptAst(fullAst, {
+          pruneLength,
+          excerptSeparator: frontmatter.excerpt_separator,
+        })
+        const definitionMap = calcDefinitionMap(
+          ast,
+          undefined,
+          presetDefinitions,
+        )
+        const footnoteDefinitionMap = calcFootnoteDefinitionMap(
+          ast,
+          undefined,
+          presetFootnoteDefinitions,
+          preferReferences,
+          footnoteIdentifierPrefix,
+        )
+        return renderMarkdown(ast, definitionMap, footnoteDefinitionMap)
       },
     },
     definitionMap: {
@@ -402,6 +467,16 @@ export async function setFieldsOnGraphQLNodeType(
     },
   }
   return result
+}
+
+interface GetHtmlOptions {
+  preferReferences: boolean
+}
+
+interface GetExcerptOptions {
+  preferReferences: boolean
+  pruneLength: number
+  excerptSeparator?: string
 }
 
 interface GetExcerptAstOptions {

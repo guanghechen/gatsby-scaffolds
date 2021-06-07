@@ -45,6 +45,8 @@ const typeDefs = `
     categories: [[MarkdownYozoraCategoryItem]]!
     toc: MarkdownYozoraToc!
     ast: JSON!
+    html: String!
+    excerpt: String!
     excerptAst: JSON!
     definitionMap: JSON!
     footnoteDefinitionMap: JSON!

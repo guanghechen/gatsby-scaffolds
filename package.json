@@ -57,6 +57,7 @@
     "@yozora/ast-util": "^1.0.0-alpha.22",
     "@yozora/character": "^1.0.0-alpha.22",
     "@yozora/core-parser": "^1.0.0-alpha.22",
+    "@yozora/html-markdown": "^1.0.0-alpha.1",
     "cross-env": "7.0.3",
     "eslint": "7.27.0",
     "eslint-config-prettier": "8.3.0",
