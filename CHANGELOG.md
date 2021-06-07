@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.7.0-alpha.0"></a>
+## 1.7.0-alpha.0 (2021-06-07)
+
+### Added
+
+- ✨ feat: support quering html and excerpt within Graphql API [[49f7487](https://github.com/guanghechen/gatsby-scaffolds/commit/49f7487d908b3a115480b6d78428c7976543d250)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[031a6e5](https://github.com/guanghechen/gatsby-scaffolds/commit/031a6e587fbc488374b48b716083aec663ea30c1)]
+
+
 <a name="1.6.0"></a>
 ## 1.6.0 (2021-06-04)
 
