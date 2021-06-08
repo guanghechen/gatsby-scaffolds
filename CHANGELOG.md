@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="0.0.0"></a>
+## 0.0.0 (2021-06-08)
+
+### Removed
+
+- 🔥 feat: remove sub-packages (migrated to github.com/yozorajs/gatsby-scaffolds) [[7cfefeb](https://github.com/guanghechen/gatsby-scaffolds/commit/7cfefebbf0f8b3271dd6bf8f3ef5134e14849479)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[cb7eaf2](https://github.com/guanghechen/gatsby-scaffolds/commit/cb7eaf249d948b458e339b404f9c68073c3a0461)]
+
+
 <a name="1.7.0-alpha.1"></a>
 ## 1.7.0-alpha.1 (2021-06-08)
 
