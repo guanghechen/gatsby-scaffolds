@@ -1,5 +1,5 @@
 import { isFunction } from '@guanghechen/option-helper'
-import { TextType } from '@yozora/ast'
+import { FootnoteReferenceType, HtmlType, TextType } from '@yozora/ast'
 import type {
   Definition,
   FootnoteDefinition,
@@ -17,7 +17,7 @@ import {
   traverseAST,
 } from '@yozora/ast-util'
 import { stripChineseCharacters } from '@yozora/character'
-import renderMarkdown from '@yozora/html-markdown'
+import renderMarkdown, { defaultRendererMap } from '@yozora/html-markdown'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import type { Node, SetFieldsOnGraphQLNodeTypeArgs } from 'gatsby'
@@ -32,6 +32,12 @@ dayjs.extend(duration)
 
 let fileNodes: Node[] | null = null
 const astPromiseMap = new Map<string, Promise<Root>>()
+
+const htmlRendererMap = {
+  [HtmlType]: () => '',
+  [FootnoteReferenceType]: () => '',
+  ...defaultRendererMap,
+}
 
 /**
  * Gatsby hook.
@@ -220,6 +226,29 @@ export async function setFieldsOnGraphQLNodeType(
     return excerptAst
   }
 
+  /**
+   * Render Yozora ast into html string.
+   * @param ast
+   * @param preferReferences
+   * @returns
+   */
+  function astToHTML(ast: Root, preferReferences: boolean): string {
+    const definitionMap = calcDefinitionMap(ast, undefined, presetDefinitions)
+    const footnoteDefinitionMap = calcFootnoteDefinitionMap(
+      ast,
+      undefined,
+      presetFootnoteDefinitions,
+      preferReferences,
+      footnoteIdentifierPrefix,
+    )
+    return renderMarkdown(
+      ast,
+      definitionMap,
+      footnoteDefinitionMap,
+      htmlRendererMap,
+    )
+  }
+
   const result = {
     access: {
       type: 'String',
@@ -364,19 +393,7 @@ export async function setFieldsOnGraphQLNodeType(
         { preferReferences }: GetHtmlOptions,
       ): Promise<string> {
         const ast = await getAst(markdownNode)
-        const definitionMap = calcDefinitionMap(
-          ast,
-          undefined,
-          presetDefinitions,
-        )
-        const footnoteDefinitionMap = calcFootnoteDefinitionMap(
-          ast,
-          undefined,
-          presetFootnoteDefinitions,
-          preferReferences,
-          footnoteIdentifierPrefix,
-        )
-        return renderMarkdown(ast, definitionMap, footnoteDefinitionMap)
+        return astToHTML(ast, preferReferences)
       },
     },
     excerptAst: {
@@ -420,19 +437,7 @@ export async function setFieldsOnGraphQLNodeType(
           pruneLength,
           excerptSeparator: frontmatter.excerpt_separator,
         })
-        const definitionMap = calcDefinitionMap(
-          ast,
-          undefined,
-          presetDefinitions,
-        )
-        const footnoteDefinitionMap = calcFootnoteDefinitionMap(
-          ast,
-          undefined,
-          presetFootnoteDefinitions,
-          preferReferences,
-          footnoteIdentifierPrefix,
-        )
-        return renderMarkdown(ast, definitionMap, footnoteDefinitionMap)
+        return astToHTML(ast, preferReferences)
       },
     },
     definitionMap: {
