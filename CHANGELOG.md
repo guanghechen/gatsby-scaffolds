@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="1.7.0-alpha.1"></a>
+## 1.7.0-alpha.1 (2021-06-08)
+
+### Miscellaneous
+
+-  improve: mute warnings from @yozora/html-markdown [[a575616](https://github.com/guanghechen/gatsby-scaffolds/commit/a5756162d725960427407b7384a06f530caf25f4)]
+-  improve: add new field &#x60;createAtISO&#x60; for graphql sorting [[cf5c44f](https://github.com/guanghechen/gatsby-scaffolds/commit/cf5c44f8557056bbda5f21974eaa49553c675f3d)]
+- 📝 docs: update CHANGELOG [[c828f59](https://github.com/guanghechen/gatsby-scaffolds/commit/c828f5904f902cb5b8ab86a831b65a0968c1fd33)]
+
+
 <a name="1.7.0-alpha.0"></a>
 ## 1.7.0-alpha.0 (2021-06-07)
 
