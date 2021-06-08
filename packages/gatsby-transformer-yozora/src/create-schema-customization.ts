@@ -38,6 +38,7 @@ const typeDefs = `
     access: String!
     title: String!
     description: String!
+    createAtISO: String!
     createAt: String!
     updateAt: String!
     timeToRead: String!

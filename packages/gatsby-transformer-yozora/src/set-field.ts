@@ -258,6 +258,14 @@ export async function setFieldsOnGraphQLNodeType(
         return result.title.resolve(markdownNode)
       },
     },
+    createAtISO: {
+      type: 'String',
+      async resolve(markdownNode: Node): Promise<string> {
+        const { createAt, date } = (markdownNode.frontmatter ?? {}) as any
+        const d = createAt ?? date
+        return dayjs(d).toISOString()
+      },
+    },
     createAt: {
       type: 'String',
       args: {
